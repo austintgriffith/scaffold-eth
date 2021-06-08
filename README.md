@@ -161,17 +161,17 @@ Look for the [HardHat](https://hardhat.org) console.log() output in the `yarn ch
 ![image](https://user-images.githubusercontent.com/2653167/93150263-dae25180-f6b5-11ea-94e1-b24ab2a63fa5.png)
 
 
-🔬  What happens when you subtract 1 from 0? Try it out in the app to see what happens!
+🚽 UNDERFLOW!?! 🚑 [Solidity >0.8.0](https://docs.soliditylang.org/en/v0.8.0/) catchs this [with Checked Arithmetic](https://blog.soliditylang.org/2020/12/16/solidity-v0.8.0-release-announcement/)!
 
 ![underflow](https://user-images.githubusercontent.com/2653167/93688066-46466d80-fa80-11ea-85df-81fbafa46575.gif)
 
-🚽 UNDERFLOW!?! (🚑 [Solidity >0.8.0](https://docs.soliditylang.org/en/v0.8.0/) will catch this!)
+🔬  What happens when you subtract 1 from 0 without this improvement? [Use Solidity 0.7.6](https://hardhat.org/guides/compile-contracts.html#multiple-solidity-versions) and try it out in the app to see what happens! 
 
 🧫 You can iterate and learn as you go. Test your assumptions!
 
 🔐 Global variables like `msg.sender` and `msg.value` are cryptographically backed and can be used to make rules
 
-📝 Keep this [cheat sheet](https://solidity.readthedocs.io/en/v0.7.0/cheatsheet.html?highlight=global#global-variables) handy
+📝 Keep this [cheat sheet](https://solidity.readthedocs.io/en/v0.8.0/cheatsheet.html?highlight=global#global-variables) handy
 
 ⏳ Maybe we could use `block.timestamp` or `block.number` to track time in our contract
 
