@@ -18,7 +18,7 @@ import {
 } from "antd";
 import { useBlockNumber, usePoller } from "eth-hooks";
 import { ethers } from "ethers";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDebounce } from "../hooks";
 
 const { Option } = Select;
@@ -99,7 +99,6 @@ function Swap({ selectedProvider, tokenListURI }) {
 
   useEffect(() => {
     const getTokenList = async () => {
-      console.log(_tokenListUri);
       try {
         const tokenList = await fetch(_tokenListUri);
         const tokenListJson = await tokenList.json();
@@ -120,9 +119,9 @@ function Swap({ selectedProvider, tokenListURI }) {
       }
     };
     getTokenList();
-  }, [tokenListURI]);
+  }, [_tokenListUri, activeChainId]);
 
-  const getTrades = async () => {
+  const getTrades = useCallback(async () => {
     if (tokenIn && tokenOut && (amountIn || amountOut)) {
       const pairs = arr => arr.map((v, i) => arr.slice(i + 1).map(w => [v, w])).flat();
 
@@ -151,7 +150,7 @@ function Swap({ selectedProvider, tokenListURI }) {
           listOfPairs.filter(item => item),
           new TokenAmount(tokens[tokenIn], ethers.utils.parseUnits(amountIn.toString(), tokens[tokenIn].decimals)),
           tokens[tokenOut],
-          { maxNumResults: 3, maxHops: 1 },
+          { maxNumResults: 3, maxHops: 2 },
         );
         if (bestTrade[0]) {
           setAmountOut(bestTrade[0].outputAmount.toSignificant(6));
@@ -177,11 +176,11 @@ function Swap({ selectedProvider, tokenListURI }) {
 
       console.log(bestTrade);
     }
-  };
+  }, [amountIn, amountOut, exact, selectedProvider, tokenIn, tokenList, tokenOut, tokens]);
 
   useEffect(() => {
     getTrades();
-  }, [tokenIn, tokenOut, debouncedAmountIn, debouncedAmountOut, slippageTolerance, selectedProvider]);
+  }, [getTrades, tokenIn, tokenOut, debouncedAmountIn, debouncedAmountOut, slippageTolerance, selectedProvider]);
 
   useEffect(() => {
     if (trades && trades[0]) {
@@ -191,7 +190,7 @@ function Swap({ selectedProvider, tokenListURI }) {
         setAmountInMax(trades[0].maximumAmountIn(slippageTolerance));
       }
     }
-  }, [slippageTolerance, amountIn, amountOut, trades]);
+  }, [slippageTolerance, amountIn, amountOut, trades, exact]);
 
   const getBalance = async (_token, _account, _contract) => {
     let newBalance;

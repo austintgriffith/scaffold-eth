@@ -117,7 +117,14 @@ export default function useContractLoader(providerOrSigner, config = {}) {
     return () => {
       active = false;
     };
-  }, [providerOrSigner, config.chainId, config.hardhatNetworkName]);
+  }, [
+    providerOrSigner,
+    config.chainId,
+    config.hardhatNetworkName,
+    config.customAddresses,
+    config.externalContracts,
+    config.hardhatContracts,
+  ]);
 
   return contracts;
 }

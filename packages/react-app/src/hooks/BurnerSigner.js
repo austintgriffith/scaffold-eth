@@ -4,7 +4,6 @@ const { ethers } = require("ethers");
 
 export default function useBurnerSigner(provider) {
   const key = "metaPrivateKey";
-  let wallet;
   const [signer, setSigner] = useState();
   const [storedValue, setStoredValue] = useState();
 
@@ -31,7 +30,7 @@ export default function useBurnerSigner(provider) {
 
   useEffect(() => {
     if (storedValue && provider) {
-      wallet = new ethers.Wallet(storedValue);
+      const wallet = new ethers.Wallet(storedValue);
       const _signer = wallet.connect(provider);
       setSigner(_signer);
     }

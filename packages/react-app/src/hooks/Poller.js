@@ -21,6 +21,6 @@ export default function usePoller(fn, delay, extraWatch) {
   }, [delay]);
   // run at start too
   useEffect(() => {
-    fn();
+    savedCallback.current();
   }, [extraWatch]);
 }

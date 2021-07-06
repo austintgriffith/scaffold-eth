@@ -12,9 +12,9 @@ export default function useOnBlock(provider, fn, args) {
 
   // Turn on the listener if we have a function & a provider
   useEffect(() => {
-    if (fn && provider) {
+    if (savedCallback.current && provider) {
       const listener = blockNumber => {
-        if (DEBUG) console.log(blockNumber, fn, args, provider.listeners());
+        if (DEBUG) console.log(blockNumber, savedCallback.current, args, provider.listeners());
 
         if (args && args.length > 0) {
           savedCallback.current(...args);
@@ -29,5 +29,5 @@ export default function useOnBlock(provider, fn, args) {
         provider.off("block", listener);
       };
     }
-  }, [provider]);
+  }, [provider, args]);
 }

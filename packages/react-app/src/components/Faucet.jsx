@@ -64,7 +64,7 @@ export default function Faucet(props) {
         setAddress(address);
       }
     },
-    [props.ensProvider, props.onChange],
+    [props.ensProvider],
   );
 
   const tx = Transactor(props.localProvider);
