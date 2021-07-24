@@ -1,19 +1,21 @@
 import { KeyOutlined, QrcodeOutlined, SendOutlined, WalletOutlined } from '@ant-design/icons';
+import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { parseEther } from '@ethersproject/units';
 import { Button, Modal, Spin, Tooltip, Typography } from 'antd';
-import { BytesLike, ethers } from 'ethers';
+import { useUserAddress } from 'eth-hooks';
+import { BytesLike, ethers, Signer } from 'ethers';
 import QR from 'qrcode.react';
 import React, { FC, useState } from 'react';
-import { transactor } from '~~/helpers';
-import { Address, AddressInput, Balance, EtherInput } from '.';
-import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { providers } from 'web3modal';
-import { useUserAddress } from '~~/components/common/hooks';
+
+import { Address, AddressInput, Balance, EtherInput } from '.';
+
+import { transactor } from '~~/helpers';
 
 const { Text, Paragraph } = Typography;
 
 interface IWalletProps {
-  provider: JsonRpcProvider | Web3Provider | undefined;
+  signer: Signer | undefined;
   address: string;
   ensProvider: JsonRpcProvider | Web3Provider;
   price: number;
@@ -37,7 +39,7 @@ interface IWalletProps {
  * @returns 
  */
 export const Wallet: FC<IWalletProps> = (props) => {
-  const signerAddress = useUserAddress(props.provider);
+  const signerAddress = useUserAddress(props.signer);
   const selectedAddress = props.address || signerAddress;
 
   const [open, setOpen] = useState(false);
@@ -46,7 +48,7 @@ export const Wallet: FC<IWalletProps> = (props) => {
   const [toAddress, setToAddress] = useState<string>('');
   const [publicKey, setPublicKey] = useState<BytesLike>();
 
-  const providerSend = props.provider ? (
+  const providerSend = props.signer ? (
     <Tooltip title="Wallet">
       <WalletOutlined
         onClick={() => {
@@ -279,7 +281,7 @@ export const Wallet: FC<IWalletProps> = (props) => {
           <div>
             {selectedAddress ? <Address address={selectedAddress} ensProvider={props.ensProvider} /> : <Spin />}
             <div style={{ float: 'right', paddingRight: 25 }}>
-              <Balance address={selectedAddress} provider={props.provider} dollarMultiplier={props.price} />
+              <Balance address={selectedAddress} provider={props?.signer?.provider} dollarMultiplier={props.price} />
             </div>
           </div>
         }
@@ -302,7 +304,7 @@ export const Wallet: FC<IWalletProps> = (props) => {
             disabled={disableSend}
             loading={false}
             onClick={() => {
-              const tx = transactor(props.provider);
+              const tx = transactor(props.signer);
 
               let value;
               try {

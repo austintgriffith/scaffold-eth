@@ -1,21 +1,23 @@
+import { Signer } from '@ethersproject/abstract-signer';
+import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { Button } from 'antd';
+import { TEthersProvider } from 'eth-hooks/lib/models';
 import React, { FC } from 'react';
 import { useThemeSwitcher } from 'react-css-theme-switcher';
-import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import Web3Modal from 'web3modal';
-import { Address } from './Address';
-import { Balance, Wallet } from '.';
+
+import { Address, Balance, Wallet } from '.';
 
 export interface IAccountProps {
   address: string;
-  userProvider: JsonRpcProvider | Web3Provider | undefined;
-  localProvider: JsonRpcProvider | Web3Provider | undefined;
-  mainnetProvider: JsonRpcProvider | Web3Provider;
+  userSigner?: Signer;
+  localProvider: TEthersProvider | undefined;
+  mainnetProvider: TEthersProvider;
   price: number;
   minimized?: string;
-  web3Modal: Web3Modal;
-  loadWeb3Modal: () => Promise<void>;
-  logoutOfWeb3Modal: () => void;
+  web3Modal?: Web3Modal;
+  loadWeb3Modal?: () => Promise<void>;
+  logoutOfWeb3Modal?: () => void;
   blockExplorer: string;
 }
 
@@ -40,7 +42,7 @@ export interface IAccountProps {
 export const Account: FC<IAccountProps> = (props: IAccountProps) => {
   const {
     address,
-    userProvider,
+    userSigner,
     localProvider,
     mainnetProvider,
     price,
@@ -52,7 +54,7 @@ export const Account: FC<IAccountProps> = (props: IAccountProps) => {
   } = props;
 
   const modalButtons = [];
-  if (web3Modal) {
+  if (web3Modal && loadWeb3Modal && logoutOfWeb3Modal) {
     if (web3Modal.cachedProvider) {
       modalButtons.push(
         <Button
@@ -86,14 +88,14 @@ export const Account: FC<IAccountProps> = (props: IAccountProps) => {
   ) : (
     <span>
       {address ? (
-        <Address punkBlockie={true} address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />
+        <Address punkBlockie address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />
       ) : (
         'Connecting...'
       )}
       <Balance address={address} provider={localProvider} price={price} />
       <Wallet
         address={address}
-        provider={userProvider}
+        signer={userSigner}
         ensProvider={mainnetProvider}
         price={price}
         color={currentTheme === 'light' ? '#1890ff' : '#2caad9'}

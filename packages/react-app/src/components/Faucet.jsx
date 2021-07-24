@@ -1,7 +1,7 @@
 import { SendOutlined } from "@ant-design/icons";
 import { Button, Input, Tooltip } from "antd";
-import { useLookupAddress } from "eth-hooks";
-import React, { useCallback, useState } from "react";
+import { useLookupAddress } from "eth-hooks/lib/dapps/ens";
+import React, { useCallback, useState, useEffect } from "react";
 import Blockies from "react-blockies";
 import { Transactor } from "../helpers";
 import Wallet from "./Wallet";
@@ -38,6 +38,18 @@ const { utils } = require("ethers");
 
 export default function Faucet(props) {
   const [address, setAddress] = useState();
+  const [faucetAddress, setFaucetAddress] = useState();
+
+  useEffect(() => {
+    const getFaucetAddress = async () => {
+      if (props.localProvider) {
+        const _faucetAddress = await props.localProvider.listAccounts();
+        setFaucetAddress(_faucetAddress[0]);
+        console.log(_faucetAddress);
+      }
+    };
+    getFaucetAddress();
+  }, [props.localProvider]);
 
   let blockie;
   if (address && typeof address.toLowerCase === "function") {
@@ -59,7 +71,7 @@ export default function Faucet(props) {
               address = possibleAddress;
             }
             // eslint-disable-next-line no-empty
-          } catch (e) {}
+          } catch (e) { }
         }
         setAddress(address);
       }
@@ -99,6 +111,7 @@ export default function Faucet(props) {
               provider={props.localProvider}
               ensProvider={props.ensProvider}
               price={props.price}
+              address={faucetAddress}
             />
           </Tooltip>
         }

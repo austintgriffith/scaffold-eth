@@ -1,18 +1,17 @@
-/* eslint-disable jsx-a11y/accessible-emoji */
-
-import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { formatEther } from '@ethersproject/units';
 import { Select } from 'antd';
+import { useTokenList } from 'eth-hooks/lib/dapps/dex';
+import { TEthersProvider } from 'eth-hooks/lib/models';
 import { BigNumber } from 'ethers';
 import React, { FC, useState } from 'react';
+
 import { Address, AddressInput } from '~~/components/common';
-import { useTokenList } from '~~/components/common/hooks';
 
 const { Option } = Select;
 
 interface IHintsProps {
   yourLocalBalance: BigNumber | undefined;
-  mainnetProvider: JsonRpcProvider | Web3Provider;
+  mainnetProvider: TEthersProvider;
   price: number;
   address: string;
 }
@@ -139,7 +138,9 @@ export const Hints: FC<IHintsProps> = (props) => {
             console.log(`selected ${value}`);
             setSelectedToken(value);
           }}
-          filterOption={(input: any, option: any) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+          filterOption={(input: any, option: any): boolean =>
+            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }
           optionFilterProp="children">
           {listOfTokens.map((token) => (
             <Option key={token.symbol} value={token.symbol}>

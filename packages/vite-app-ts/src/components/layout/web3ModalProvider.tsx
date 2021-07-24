@@ -1,6 +1,7 @@
 import WalletConnectProvider from '@walletconnect/web3-provider';
-import { INFURA_ID } from '~~/models/constants/constants';
 import Web3Modal from 'web3modal';
+
+import { INFURA_ID } from '~~/models/constants/constants';
 
 /*
   Web3 modal helps us "connect" external wallets:

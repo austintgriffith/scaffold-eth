@@ -28,7 +28,7 @@
       "typechain/*": ["./typechain/*"]
     }
   },
-  "include": ["types", "./scripts", "test", "helpers", "./hardhat.config.ts", "./deploy"],
+  "include": ["types", "scripts", "test", "helpers", "./hardhat.config.ts", "./deploy"],
   "exclude": ["**/node_modules", ".husky", "./src/styles/css", "./tailwind.config.js"],
   "files": ["./hardhat.config.ts", "helpers/types/__global.ts"]
 }

@@ -1,14 +1,11 @@
-/* eslint-disable jsx-a11y/accessible-emoji */
-
-import { SyncOutlined } from '@ant-design/icons';
-import { formatEther, parseEther } from '@ethersproject/units';
-import { Button, Card, DatePicker, Divider, Input, List, Progress, Slider, Spin, Switch, notification } from 'antd';
+import { StaticJsonRpcProvider } from '@ethersproject/providers';
+import { parseEther } from '@ethersproject/units';
+import { Button, Input, Spin, notification } from 'antd';
 import React, { FC, ReactElement, useState } from 'react';
-import { Address, Balance, AddressInput, EtherInput } from '~~/components/common';
 import { useHistory } from 'react-router-dom';
 import StackGrid from 'react-stack-grid';
-import { ethers } from 'ethers';
-import { StaticJsonRpcProvider } from '@ethersproject/providers';
+
+import { AddressInput, EtherInput } from '~~/components/common';
 
 interface ICheckoutProps {
   setRoute: any;
@@ -25,13 +22,13 @@ export const Checkout: FC<ICheckoutProps> = (props) => {
 
   const [newPurpose, setNewPurpose] = useState('loading...');
 
-  let history = useHistory();
+  const history = useHistory();
 
   const [amount, setAmount] = useState<string>();
   const [reason, setReason] = useState<string>();
   const [toAddress, setToAddress] = useState('0x97843608a00e2bbc75ab0C1911387E002565DEDE');
   let extra = '';
-  if (toAddress == '0x97843608a00e2bbc75ab0C1911387E002565DEDE') {
+  if (toAddress === '0x97843608a00e2bbc75ab0C1911387E002565DEDE') {
     extra = '(buidlguidl.eth)';
   }
 
@@ -53,7 +50,7 @@ export const Checkout: FC<ICheckoutProps> = (props) => {
         ) : (
           <div style={{ width: 620, margin: 'auto', marginTop: 16 }}>
             <AddressInput
-              hideScanner={true}
+              hideScanner
               ensProvider={mainnetProvider}
               placeholder="to address"
               address={toAddress}
@@ -71,7 +68,7 @@ export const Checkout: FC<ICheckoutProps> = (props) => {
 
         <div style={{ width: 620, margin: 'auto', marginTop: 16 }}>
           <EtherInput
-            autoFocus={true}
+            autoFocus
             placeholder={
               cart && cart.length > 0
                 ? 'amount in total ETH to split between the streams of the selected builders/builds'
@@ -86,7 +83,7 @@ export const Checkout: FC<ICheckoutProps> = (props) => {
         </div>
         <div style={{ width: 620, margin: 'auto', marginTop: 16 }}>
           <Input
-            placeholder={'optional reason / guidance'}
+            placeholder="optional reason / guidance"
             value={reason}
             onChange={(e) => {
               setReason(e.target.value);
@@ -113,9 +110,9 @@ export const Checkout: FC<ICheckoutProps> = (props) => {
                 });
                 setToAddress('0x97843608a00e2bbc75ab0C1911387E002565DEDE');
               } else {
-                let finalAddresses = [];
-                let finalReasons = [];
-                let overrides: Record<string, any> = {};
+                const finalAddresses = [];
+                const finalReasons = [];
+                const overrides: Record<string, any> = {};
 
                 if (cart && cart.length > 0) {
                   console.log(
@@ -123,34 +120,34 @@ export const Checkout: FC<ICheckoutProps> = (props) => {
                   );
                   console.log(cart);
 
-                  //replace "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",//"0x90FC815Fe9338BB3323bAC84b82B9016ED021e70",
-                  //and "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",//"0x21e18260357D33d2e18482584a8F39D532fb71cC",
+                  // replace "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",//"0x90FC815Fe9338BB3323bAC84b82B9016ED021e70",
+                  // and "0x5FC8d32690cc91D4c39d9d3abcBD16989F875707",//"0x21e18260357D33d2e18482584a8F39D532fb71cC",
                   const translateAddressesForLocal = (addy: string) => {
-                    //if(addy=="0x90FC815Fe9338BB3323bAC84b82B9016ED021e70") return "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE"
-                    //if(addy=="0x21e18260357D33d2e18482584a8F39D532fb71cC") return "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c"
+                    // if(addy=="0x90FC815Fe9338BB3323bAC84b82B9016ED021e70") return "0x9A9f2CCfdE556A7E9Ff0848998Aa4a0CFD8863AE"
+                    // if(addy=="0x21e18260357D33d2e18482584a8F39D532fb71cC") return "0x3Aa5ebB10DC797CAC828524e59A333d0A371443c"
                     return addy;
                   };
 
-                  for (let c in cart) {
+                  for (const c in cart) {
                     if (cart[c].streamAddress) {
                       console.log('Adding stream address ');
                       finalAddresses.push(translateAddressesForLocal(cart[c].streamAddress));
                       finalReasons.push(reason);
                     } else {
                       console.log('NO STREAM, NEED TO SPLIT...');
-                      finalAddresses.push('0x97843608a00e2bbc75ab0C1911387E002565DEDE'); //buidlguidl.eth
+                      finalAddresses.push('0x97843608a00e2bbc75ab0C1911387E002565DEDE'); // buidlguidl.eth
                       finalReasons.push(cart[c].name + ': ' + reason);
                     }
                   }
                 } else {
-                  //overrides = { gasLimit: 520000 }
-                  /*console.log("toAddress",toAddress)
+                  // overrides = { gasLimit: 520000 }
+                  /* console.log("toAddress",toAddress)
                 console.log("AMOUNT",amount)
                 tx({
                   to: toAddress,
                   value: parseEther(""+amount),
                   data: reason?ethers.utils.hexlify(ethers.utils.toUtf8Bytes(reason)):"0x"
-                })*/
+                }) */
                   finalAddresses.push(toAddress); // buidlguidl multi sig
 
                   let finalReason = '🏰 BuidlGuidl';
@@ -163,9 +160,9 @@ export const Checkout: FC<ICheckoutProps> = (props) => {
 
                 overrides.value = parseEther('' + amount);
 
-                let result = tx(writeContracts.StreamFunder.fundStreams(finalAddresses, finalReasons, overrides));
+                const result = tx(writeContracts.StreamFunder.fundStreams(finalAddresses, finalReasons, overrides));
 
-                let finalResult = await result;
+                const finalResult = await result;
                 console.log('RESULTTTT:', finalResult);
 
                 if (finalResult) {
@@ -202,9 +199,9 @@ export const Checkout: FC<ICheckoutProps> = (props) => {
                     history.push('/funders');
                     setCart([]);
                   }, 14000);
-                  /*setTimeout(()=>{
+                  /* setTimeout(()=>{
                   window.scrollBy(0, 700);
-                },2500)*/
+                },2500) */
                 }
               }
             }}

@@ -9,7 +9,11 @@ export default function useLocalStorage(key, initialValue, ttl) {
       const item = window.localStorage.getItem(key);
       const parsedItem = item ? JSON.parse(item) : initialValue;
 
+<<<<<<< HEAD:packages/vite-app-ts/src/components/common/hooks/useLocalStorage.ts
+      if (typeof parsedItem === 'object' && parsedItem !== null && 'expiry' in parsedItem && 'value' in parsedItem) {
+=======
       if (typeof parsedItem === "object" && parsedItem !== null && "expiry" in parsedItem && "value" in parsedItem) {
+>>>>>>> stage-hoist-hooks-rebase:packages/react-app/src/hooks/LocalStorage.js
         const now = new Date();
         if (ttl && now.getTime() > parsedItem.expiry) {
           // If the item is expired, delete the item from storage
@@ -57,4 +61,4 @@ export default function useLocalStorage(key, initialValue, ttl) {
   };
 
   return [storedValue, setValue];
-}
+};

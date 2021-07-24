@@ -1,1 +1,1 @@
-export const contractDirectory = '../../../generated/contracts';
+export const contractDirectory: string = '../../../generated/contracts';

@@ -1,101 +1,95 @@
 {
-   "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
-   "parserOptions": {
-      "ecmaVersion": 2020, // Allows for the parsing of modern ECMAScript features
-      "sourceType": "module", // Allows for the use of imports,
-      "ecmaFeatures": {
-         "jsx": true // Allows for the parsing of JSX
-      },
-      "tsconfigRootDir": ".",
-      "project": ["./tsconfig.eslint.json"],
-      "projectFolderIgnoreList": ["**/node_modules/**", "dist/**", "build/**", ".yarn", "build-utils"]
-   },
-   "env": {
-      "browser": true,
-      "es6": true,
-      "node": true
-   },
-   "extends": [
-      "airbnb-typescript",
-      "plugin:import/errors",
-      "plugin:import/warnings",
-      "plugin:import/typescript",
-      "plugin:prettier/recommended",
-      "plugin:@typescript-eslint/eslint-recommended",
-      "plugin:@typescript-eslint/recommended",
-      "plugin:@typescript-eslint/recommended-requiring-type-checking",
-      "plugin:jest/recommended",
-   ],
-   "plugins": ["prettier", "formatjs", "react", "react-hooks"],
-   "rules": {
-      "formatjs/no-offset": "error",
-      "formatjs/enforce-description": "off",
-      "formatjs/enforce-default-message": "off",
-      "formatjs/enforce-placeholders": "error",
-      "formatjs/no-multiple-whitespaces": "off",
-      "formatjs/no-multiple-plurals": "error",
-      "react/jsx-uses-react": "off",
-      "react/react-in-jsx-scope": "off",
-      "prettier/prettier": 0,
-      "@typescript-eslint/ban-ts-comment": "off",
-      "@typescript-eslint/no-empty-function": "warn",
-      "no-unused-vars": 0,
-      "@typescript-eslint/no-unused-vars": "warn",
-      "@typescript-eslint/no-use-before-define": ["error"],
-      "@typescript-eslint/no-unsafe-member-access": 0,
-      "@typescript-eslint/no-unsafe-assignment": 0,
-      "@typescript-eslint/no-explicit-any": 0,
-      "@typescript-eslint/no-unsafe-call": "warn",
-      "@typescript-eslint/unbound-method": 0,
-      "@typescript-eslint/restrict-template-expressions": ["error", { "allowBoolean": true, "allowNumber": true }],
-      "no-param-reassign": "error",
-      "no-duplicate-imports": "warn",
-      //"dynamic-import-chunkname": "warn",
-      "import/order": [
-         "warn",
-         {
-            "alphabetize": {
-               "order": "asc" /* sort in ascending order. Options: ['ignore', 'asc', 'desc'] */,
-               "caseInsensitive": true /* ignore case. Options: [true, false] */
-            },
-            "newlines-between": "always"
-         }
-      ],
-      "import/extensions": 0,
-      "import/no-unresolved": 0,
-      "import/prefer-default-export": 0,
-      "import/no-extraneous-dependencies": [
-         "error",
-         {
-            "devDependencies": true,
-            "optionalDependencies": false,
-            "peerDependencies": false
-         }
-      ],
-      "sort-keys": "off",
-      "comma-dangle": "off",
-      "no-use-before-define": "off",
-      "spaced-comment": "warn",
-      "max-len": 0,
-      "indent": 0,
-      "no-console": 0,
-      "arrow-body-style": 0,
-      "no-multiple-empty-lines": "warn",
-      "no-restricted-globals": "off",
-      "eslint linebreak-style": 0,
-      "object-curly-newline": 0,
-      "no-shadow": 0
-   },
-   "settings": {
-      "react": {
-         "createClass": "createReactClass", // Regex for Component Factory to use,
-         // default to "createReactClass"
-         "pragma": "React", // Pragma to use, default to "React"
-         "fragment": "Fragment", // Fragment to use (may be a property of <pragma>), default to "Fragment"
-         "version": "detect" // React version. "detect" automatically picks the version you have installed.
-         // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
-         // default to latest and warns if missing
-         // It will default to "detect" in the future
+  "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
+  "parserOptions": {
+    "ecmaVersion": 2020, // Allows for the parsing of modern ECMAScript features
+    "sourceType": "module", // Allows for the use of imports,
+    "ecmaFeatures": {
+      "jsx": false // Allows for the parsing of JSX
+    },
+    "tsconfigRootDir": ".",
+    "project": ["./tsconfig.json"],
+    "projectFolderIgnoreList": ["node_modules", "dist", "build", ".yarn", "build-utils"]
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb-typescript",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript",
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:jest/recommended"
+  ],
+  "plugins": ["prettier", "formatjs", "react", "react-hooks"],
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "prettier/prettier": 0,
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/no-empty-function": "warn",
+    "no-unused-vars": 0,
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/no-unsafe-member-access": 0,
+    "@typescript-eslint/no-unsafe-assignment": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/no-unsafe-call": "warn",
+    "@typescript-eslint/unbound-method": 0,
+    "@typescript-eslint/restrict-template-expressions": ["error", { "allowBoolean": true, "allowNumber": true }],
+    "no-param-reassign": "error",
+    "no-duplicate-imports": "warn",
+    //"dynamic-import-chunkname": "warn",
+    "import/order": [
+      "warn",
+      {
+        "alphabetize": {
+          "order": "asc" /* sort in ascending order. Options: ['ignore', 'asc', 'desc'] */,
+          "caseInsensitive": true /* ignore case. Options: [true, false] */
+        },
+        "newlines-between": "always"
       }
-   }
+    ],
+    "import/extensions": 0,
+    "import/no-unresolved": 0,
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ],
+    "sort-keys": "off",
+    "comma-dangle": "off",
+    "no-use-before-define": "off",
+    "spaced-comment": "warn",
+    "max-len": 0,
+    "indent": 0,
+    "no-console": 0,
+    "arrow-body-style": 0,
+    "no-multiple-empty-lines": "warn",
+    "no-restricted-globals": "off",
+    "eslint linebreak-style": 0,
+    "object-curly-newline": 0,
+    "no-shadow": 0
+  },
+  "settings": {
+    "react": {
+      "createClass": "createReactClass", // Regex for Component Factory to use,
+      // default to "createReactClass"
+      "pragma": "React", // Pragma to use, default to "React"
+      "fragment": "Fragment", // Fragment to use (may be a property of <pragma>), default to "Fragment"
+      "version": "detect" // React version. "detect" automatically picks the version you have installed.
+      // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
+      // default to latest and warns if missing
+      // It will default to "detect" in the future
+    }
+  }
 }

@@ -1,8 +1,10 @@
-import React, { useState, useEffect, FC } from 'react';
-import QR from 'qrcode.react';
-import { Blockie, Balance } from '.';
 import { message, Typography } from 'antd';
 import { addEventListener } from 'history/DOMUtils';
+import QR from 'qrcode.react';
+import React, { useState, useEffect, FC } from 'react';
+
+import { Blockie, Balance } from '.';
+
 const { Text } = Typography;
 
 interface IPunkBlockie {
@@ -23,9 +25,9 @@ export const PunkBlockie: FC<IPunkBlockie> = (props) => {
     qrWidth = size.width ?? minSize / 3;
   }
 
-  let scale = props.scale ?? Math.min(size.height - 130, size.width, 1024) / (qrWidth * 1);
+  const scale = props.scale ?? Math.min(size.height - 130, size.width, 1024) / (qrWidth * 1);
 
-  let offset = 0.42;
+  const offset = 0.42;
 
   const url = window.location.href + '';
 
@@ -33,12 +35,12 @@ export const PunkBlockie: FC<IPunkBlockie> = (props) => {
 
   const punkSize = 112;
 
-  let part1 = props.address && props.address.substr(2, 20);
-  let part2 = props.address && props.address.substr(22);
+  const part1 = props.address && props.address.substr(2, 20);
+  const part2 = props.address && props.address.substr(22);
   const x = parseInt(part1, 16) % 100;
   const y = parseInt(part2, 16) % 100;
 
-  //console.log("window.location",window.location)
+  // console.log("window.location",window.location)
 
   return (
     <div
@@ -107,9 +109,9 @@ export const PunkBlockie: FC<IPunkBlockie> = (props) => {
 
       {props.withQr ? (
         <QR
-          level={'H'}
+          level="H"
           includeMargin={false}
-          //ethereum:0x34aA3F359A9D614239015126635CE7732c18fDF3
+          // ethereum:0x34aA3F359A9D614239015126635CE7732c18fDF3
           value={props.address ? 'ethereum:' + props.address : ''}
           size={hardcodedSizeForNow}
           imageSettings={{ width: 105, height: 105, excavate: true, src: 'qr' }}

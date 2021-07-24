@@ -1,0 +1,16 @@
+#folders
+src
+
+#files
+.commitlintrc.js
+.eslintignore
+.eslintrc.js
+.gitignore
+.huskyrc.js
+.lintstagedrc.js
+.prettierrc
+tsconfig.json
+yarn.lock
+
+*.log
+*.tgz

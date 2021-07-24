@@ -1,0 +1,116 @@
+{
+  "name": "eth-hooks",
+  "version": "2.2.1",
+  "description": "A set of hooks to turbocharge buidling",
+  "author": "Austin Griffith <austin@ethereum.org>",
+  "repository": "https://github.com/austintgriffith/eth-hooks.git",
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
+  },
+  "contributors": [
+    {
+      "name": "Austin Griffith",
+      "url": "https://github.com/austintgriffith"
+    },
+    {
+      "name": "Tom French",
+      "url": "https://github.com/tomafrench"
+    },
+    {
+      "name": "Shravan Sunder",
+      "url": "https://github.com/ShravanSunder"
+    }
+  ],
+  "dependencies": {
+    "@ethersproject/address": "^5.4.0",
+    "@ethersproject/bignumber": "^5.4.0",
+    "@ethersproject/bytes": "^5.4.0",
+    "@ethersproject/contracts": "^5.4.0",
+    "@ethersproject/networks": "^5.4.1",
+    "@ethersproject/providers": "^5.4.1",
+    "@ethersproject/signing-key": "^5.4.0",
+    "@ethersproject/solidity": "^5.4.0",
+    "@ethersproject/units": "^5.4.0",
+    "@uniswap/token-lists": "^1.0.0-beta.24",
+    "axios": "^0.21.1",
+    "burner-provider": "^1.0.38",
+    "ethers": "^5.4.1",
+    "observable-hooks": "^4.0.5",
+    "use-debounce": "^7.0.0"
+  },
+  "peerDependencies": {
+    "@uniswap/sdk": "^3.0.3",
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@testing-library/dom": "^8.1.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^12.0.0",
+    "@testing-library/react-hooks": "^7.0.1",
+    "@testing-library/user-event": "^13.1.9",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^16.0.0",
+    "@types/pretty-time": "^1.1.0",
+    "@types/qrcode.react": "^1.0.1",
+    "@types/react": "^17.0.13",
+    "@types/react-blockies": "^1.4.0",
+    "@types/react-dom": "^17.0.8",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.3",
+    "@uniswap/sdk": "^3.0.3",
+    "commitizen": "^4.1.2",
+    "cz-conventional-changelog": "^3.2.0",
+    "eslint": "^7.30.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-typescript": "^12.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jest": "^24.3.6",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-testing-library": "^4.9.0",
+    "eslint-plugin-unused-imports": "^1.1.2",
+    "husky": "^4.2.5",
+    "jest": "^27.0.6",
+    "lint-staged": "^10.2.7",
+    "prettier": "^2.3.1",
+    "prettier-eslint": "^12.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rxjs": "^7.2.0",
+    "shx": "^0.3.3",
+    "ts-node": "^10.1.0",
+    "ts-patch": "^1.3.4",
+    "typescript": "^4.3.4",
+    "typescript-transform-paths": "^3.0.2",
+    "watch": "^1.0.2"
+  },
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "react",
+    "create-eth-app",
+    "typescript"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "commit": "git-cz",
+    "build": "ts-patch i && tsc -p tsconfig.json",
+    "publish": "cd lib && npm publish && shx rm ./lib/package.json",
+    "watch": "watch 'yarn build' ./src",
+    "clean": "shx rm -rf ./lib",
+    "lint": "eslint --config ./.eslintrc --ignore-path ./.eslintignore ./src/**/*"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}

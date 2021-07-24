@@ -1,5 +1,6 @@
 import React from "react";
 import { Address } from "..";
+
 const { utils } = require("ethers");
 
 const tryToDisplay = thing => {

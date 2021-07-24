@@ -1,18 +1,14 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/accessible-emoji */
 import { BigNumber } from '@ethersproject/bignumber';
-import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider } from '@ethersproject/providers';
+import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { Button, Col, Divider, Input, Row, Tooltip } from 'antd';
-import { Contract, ContractFunction } from 'ethers';
+import { ContractFunction, utils } from 'ethers';
 import { FunctionFragment } from 'ethers/lib/utils';
-import React, { Dispatch, ReactElement, SetStateAction, useState } from 'react';
-import { FC } from 'react';
+import React, { Dispatch, ReactElement, SetStateAction, useState, FC } from 'react';
 import Blockies from 'react-blockies';
-import { transactor } from '~~/helpers';
+
 import { tryToDisplay } from './displayUtils';
 
-import { utils } from 'ethers';
+import { transactor } from '~~/helpers';
 
 interface IFunctionForm {
   contractFunction: ContractFunction;
@@ -25,13 +21,13 @@ interface IFunctionForm {
 export const FunctionForm: FC<IFunctionForm> = (props) => {
   const [form, setForm] = useState<Record<string, any>>({});
   const [txValue, setTxValue] = useState<string>('');
-  const [returnValue, setReturnValue] = useState<string>('');
+  const [returnValue, setReturnValue] = useState<string | ReactElement | number | undefined>();
 
   const tx = transactor(props.provider, props.gasPrice);
 
   let inputIndex = 0;
   const inputs = props.functionInfo.inputs.map((input) => {
-    const key = props.functionInfo.name + '_' + input.name + '_' + input.type + '_' + inputIndex++;
+    const key = `${props.functionInfo.name}_${input.name}_${input.type}_${inputIndex++}`;
 
     let buttons: ReactElement | null = null;
     if (input.type === 'bytes32') {
@@ -40,7 +36,7 @@ export const FunctionForm: FC<IFunctionForm> = (props) => {
           <div
             // type="dashed"
             style={{ cursor: 'pointer' }}
-            onClick={async () => {
+            onClick={(): void => {
               if (utils.isHexString(form[key])) {
                 const formUpdate = { ...form };
                 formUpdate[key] = utils.parseBytes32String(form[key]);
@@ -61,7 +57,7 @@ export const FunctionForm: FC<IFunctionForm> = (props) => {
           <div
             // type="dashed"
             style={{ cursor: 'pointer' }}
-            onClick={async () => {
+            onClick={(): void => {
               if (utils.isHexString(form[key])) {
                 const formUpdate = { ...form };
                 formUpdate[key] = utils.toUtf8String(form[key]);
@@ -82,7 +78,7 @@ export const FunctionForm: FC<IFunctionForm> = (props) => {
           <div
             // type="dashed"
             style={{ cursor: 'pointer' }}
-            onClick={async () => {
+            onClick={(): void => {
               const formUpdate = { ...form };
               formUpdate[key] = utils.parseEther(form[key]);
               setForm(formUpdate);
@@ -133,11 +129,11 @@ export const FunctionForm: FC<IFunctionForm> = (props) => {
               <Col span={16}>
                 <Tooltip placement="right" title=" * 10^18 ">
                   <div
-                    //type="dashed"
+                    // type="dashed"
                     style={{ cursor: 'pointer' }}
-                    onClick={async () => {
+                    onClick={(): void => {
                       const floatValue = parseFloat(txValue);
-                      if (floatValue) setTxValue('' + floatValue * 10 ** 18);
+                      if (floatValue) setTxValue(`${floatValue * 10 ** 18}`);
                     }}>
                     ✳️
                   </div>
@@ -146,9 +142,9 @@ export const FunctionForm: FC<IFunctionForm> = (props) => {
               <Col span={16}>
                 <Tooltip placement="right" title="number to hex">
                   <div
-                    //type="dashed"
+                    // type="dashed"
                     style={{ cursor: 'pointer' }}
-                    onClick={async () => {
+                    onClick={(): void => {
                       setTxValue(BigNumber.from(txValue).toHexString());
                     }}>
                     #️⃣
@@ -176,19 +172,19 @@ export const FunctionForm: FC<IFunctionForm> = (props) => {
   inputs.push(
     <div style={{ cursor: 'pointer', margin: 2 }} key="goButton">
       <Input
-        onChange={(e) => setReturnValue(e.target.value)}
+        onChange={(e): void => setReturnValue(e.target.value)}
         defaultValue=""
         bordered={false}
         disabled
-        value={returnValue}
+        value={returnValue as any}
         suffix={
           <div
             style={{ width: 50, height: 30, margin: 0 }}
-            //type="default"
-            onClick={async () => {
+            // type="default"
+            onClick={async (): Promise<any> => {
               let innerIndex = 0;
               const args = props.functionInfo.inputs.map((input) => {
-                const key = props.functionInfo.name + '_' + input.name + '_' + input.type + '_' + innerIndex++;
+                const key = `${props.functionInfo.name}_${input.name}_${input.type}_${innerIndex++}`;
                 let value = form[key];
                 if (input.baseType === 'array') {
                   value = JSON.parse(value);
@@ -199,10 +195,11 @@ export const FunctionForm: FC<IFunctionForm> = (props) => {
                     value = 0;
                   }
                 }
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                 return value;
               });
 
-              let result;
+              let result: string | ReactElement | number | undefined = undefined;
               if (props.functionInfo.stateMutability === 'view' || props.functionInfo.stateMutability === 'pure') {
                 const returned = await props.contractFunction(...args);
                 result = tryToDisplay(returned);

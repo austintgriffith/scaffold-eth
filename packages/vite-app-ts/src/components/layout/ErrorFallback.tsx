@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
 
-const componentMessages = (error: Error) => {
+const componentMessages = (error: Error): { msg: string; showDetails: boolean; msgDetails: string } => {
   const msg = 'Uhoh! There was an error!';
   const showDetails = true; // dev flag needed //todo
 
@@ -14,14 +14,15 @@ const componentMessages = (error: Error) => {
   return { msg, showDetails, msgDetails };
 };
 
-const consoleLog = (error: any, componentStack: string | undefined) => {
+const consoleLog = (error: any, componentStack: string | undefined): void => {
   console.log('--------------------');
+  console.log('ErrorBoundary');
   console.log(error.stack);
   console.log(componentStack);
   console.log('--------------------');
 };
 
-export const ErrorFallback = ({ error }: FallbackProps) => {
+export const ErrorFallback: FC<FallbackProps> = ({ error }) => {
   // TODO in future, change this so that it takes dev or production into account when rendering
   // https://github.com/bvaughn/react-error-boundary
 

@@ -1,4 +1,5 @@
 import WalletConnectProvider from "@walletconnect/web3-provider";
+//import Torus from "@toruslabs/torus-embed"
 import WalletLink from "walletlink";
 import { Alert, Button, Col, Menu, Row } from "antd";
 import "antd/dist/antd.css";
@@ -13,14 +14,20 @@ import {
   useBalance,
   useContractLoader,
   useContractReader,
-  useEventListener,
-  useExchangePrice,
   useGasPrice,
   useOnBlock,
-  useUserSigner,
-} from "./hooks";
+  useUserProviderAndSigner,
+} from "eth-hooks";
+import {
+  useEventListener,
+} from "eth-hooks/lib/events";
+import {
+  useExchangeEthPrice,
+} from "eth-hooks/lib/dapps/dex";
 // import Hints from "./Hints";
 import { ExampleUI, Hints, Subgraph } from "./views";
+
+import { useContractConfig } from "./hooks"
 
 const { ethers } = require("ethers");
 /*
@@ -56,8 +63,12 @@ if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
 //
 // attempt to connect to our own scaffold eth rpc and if that fails fall back to infura...
 // Using StaticJsonRpcProvider as the chainId won't change see https://github.com/ethers-io/ethers.js/issues/901
-const scaffoldEthProvider = navigator.onLine ? new ethers.providers.StaticJsonRpcProvider("https://rpc.scaffoldeth.io:48544") : null;
-const mainnetInfura = navigator.onLine ? new ethers.providers.StaticJsonRpcProvider("https://mainnet.infura.io/v3/" + INFURA_ID) : null;
+const scaffoldEthProvider = navigator.onLine
+  ? new ethers.providers.StaticJsonRpcProvider("https://rpc.scaffoldeth.io:48544")
+  : null;
+const mainnetInfura = navigator.onLine
+  ? new ethers.providers.StaticJsonRpcProvider("https://mainnet.infura.io/v3/" + INFURA_ID)
+  : null;
 // ( ⚠️ Getting "failed to meet quorum" errors? Check your INFURA_I
 
 // 🏠 Your local provider is usually pointed at your local blockchain
@@ -72,14 +83,11 @@ const blockExplorer = targetNetwork.blockExplorer;
 
 // Coinbase walletLink init
 const walletLink = new WalletLink({
-  appName: 'coinbase',
+  appName: "coinbase",
 });
 
 // WalletLink provider
-const walletLinkProvider = walletLink.makeWeb3Provider(
-    `https://mainnet.infura.io/v3/${INFURA_ID}`,
-    1,
-);
+const walletLinkProvider = walletLink.makeWeb3Provider(`https://mainnet.infura.io/v3/${INFURA_ID}`, 1);
 
 /*
   Web3 modal helps us "connect" external wallets:
@@ -87,26 +95,30 @@ const walletLinkProvider = walletLink.makeWeb3Provider(
 const web3Modal = new Web3Modal({
   network: "mainnet", // Optional. If using WalletConnect on xDai, change network to "xdai" and add RPC info below for xDai chain.
   cacheProvider: true, // optional
-  theme:"light", // optional. Change to "dark" for a dark theme.
+  theme: "light", // optional. Change to "dark" for a dark theme.
   providerOptions: {
     walletconnect: {
       package: WalletConnectProvider, // required
       options: {
+        bridge: "https://polygon.bridge.walletconnect.org",
         infuraId: INFURA_ID,
         rpc: {
-          1:'https://mainnet.infura.io/v3/${INFURA_ID}', // mainnet // For more WalletConnect providers: https://docs.walletconnect.org/quick-start/dapps/web3-provider#required
-          100:"https://dai.poa.network", // xDai
+          1: 'https://mainnet.infura.io/v3/${INFURA_ID}', // mainnet // For more WalletConnect providers: https://docs.walletconnect.org/quick-start/dapps/web3-provider#required
+          100: "https://dai.poa.network", // xDai
         },
       },
     },
-    'custom-walletlink': {
+    /*torus: {
+      package: Torus,
+    },*/
+    "custom-walletlink": {
       display: {
-        logo: 'https://play-lh.googleusercontent.com/PjoJoG27miSglVBXoXrxBSLveV6e3EeBPpNY55aiUUBM9Q1RCETKCOqdOkX2ZydqVf0',
-        name: 'Coinbase',
-        description: 'Connect to Coinbase Wallet (not Coinbase App)',
+        logo: "https://play-lh.googleusercontent.com/PjoJoG27miSglVBXoXrxBSLveV6e3EeBPpNY55aiUUBM9Q1RCETKCOqdOkX2ZydqVf0",
+        name: "Coinbase",
+        description: "Connect to Coinbase Wallet (not Coinbase App)",
       },
       package: walletLinkProvider,
-      connector: async (provider, options) => {
+      connector: async (provider, _options) => {
         await provider.enable();
         return provider;
       },
@@ -114,25 +126,32 @@ const web3Modal = new Web3Modal({
   },
 });
 
-const logoutOfWeb3Modal = async () => {
-  await web3Modal.clearCachedProvider();
-  setTimeout(() => {
-    window.location.reload();
-  }, 1);
-};
+
 
 function App(props) {
   const mainnetProvider = scaffoldEthProvider && scaffoldEthProvider._network ? scaffoldEthProvider : mainnetInfura;
 
   const [injectedProvider, setInjectedProvider] = useState();
   const [address, setAddress] = useState();
+
+  const logoutOfWeb3Modal = async () => {
+    await web3Modal.clearCachedProvider();
+    if (injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == "function") {
+      await injectedProvider.provider.disconnect();
+    }
+    setTimeout(() => {
+      window.location.reload();
+    }, 1);
+  };
+
   /* 💵 This hook will get the price of ETH from 🦄 Uniswap: */
-  const price = useExchangePrice(targetNetwork, mainnetProvider);
+  const price = useExchangeEthPrice(targetNetwork, mainnetProvider);
 
   /* 🔥 This hook will get the price of Gas from ⛽️ EtherGasStation */
   const gasPrice = useGasPrice(targetNetwork, "fast");
   // Use your injected provider from 🦊 Metamask or if you don't have it then instantly generate a 🔥 burner wallet.
-  const userSigner = useUserSigner(injectedProvider, localProvider);
+  const userProviderAndSigner = useUserProviderAndSigner(injectedProvider, localProvider);
+  const userSigner = userProviderAndSigner.signer;
 
   useEffect(() => {
     async function getAddress() {
@@ -163,16 +182,18 @@ function App(props) {
   // Just plug in different 🛰 providers to get your balance on different chains:
   const yourMainnetBalance = useBalance(mainnetProvider, address);
 
+  const contractConfig = useContractConfig();
+
   // Load in your local 📝 contract and read a value from it:
-  const readContracts = useContractLoader(localProvider);
+  const readContracts = useContractLoader(localProvider, contractConfig);
 
   // If you want to make 🔐 write transactions to your contracts, use the userSigner:
-  const writeContracts = useContractLoader(userSigner, { chainId: localChainId });
+  const writeContracts = useContractLoader(userSigner, contractConfig, localChainId);
 
   // EXTERNAL CONTRACT EXAMPLE:
   //
   // If you want to bring in the mainnet DAI contract it would look like:
-  const mainnetContracts = useContractLoader(mainnetProvider);
+  const mainnetContracts = useContractLoader(mainnetProvider, contractConfig);
 
   // If you want to call a function on a new block
   useOnBlock(mainnetProvider, () => {
@@ -278,6 +299,7 @@ function App(props) {
       </div>
     );
   }
+
 
   const loadWeb3Modal = useCallback(async () => {
     const provider = await web3Modal.connect();
@@ -414,6 +436,7 @@ function App(props) {
               provider={localProvider}
               address={address}
               blockExplorer={blockExplorer}
+              contractConfig={contractConfig}
             />
           </Route>
           <Route path="/hints">
@@ -447,6 +470,7 @@ function App(props) {
               provider={mainnetProvider}
               address={address}
               blockExplorer="https://etherscan.io/"
+              contractConfig={contractConfig}
             />
             {/*
             <Contract

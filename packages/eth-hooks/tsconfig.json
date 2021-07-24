@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "esNext",
+    "outDir": "lib",
+    "lib": ["dom", "ESNext", "ES2017"],
+    "sourceMap": false,
+    "allowJs": false,
+    "declaration": true,
+    "declarationDir": "lib",
+    "declarationMap": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "allowSyntheticDefaultImports": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "isolatedModules": false,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "typeRoots": ["node_modules/@types", "helpers/types"],
+    "paths": {
+      "~~": ["./src/"],
+      "~~/*": ["./src/*"]
+    },
+    "plugins": [
+      // Transform paths in output .js files
+      { "transform": "typescript-transform-paths" },
+      // Transform paths in output .d.ts files (Include this line if you output declarations files)
+      { "transform": "typescript-transform-paths", "afterDeclarations": true }
+    ]
+  },
+  "include": ["src", "src/**/*.json", "src/**/*.ts"],
+  "exclude": [
+    "lib/**/*.ts",
+    "lib/**/*.tsx",
+    "node_modules",
+    "**/node_modules",
+    "**/node_modules/**",
+    "../../node_modules/**/*",
+    "useOnBlock.ts",
+    "usePoller.ts"
+  ]
+}

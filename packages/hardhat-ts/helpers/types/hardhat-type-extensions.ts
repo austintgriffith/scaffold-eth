@@ -1,7 +1,6 @@
-import { ethers, Signer, utils } from 'ethers';
-import 'hardhat-deploy-ethers';
-import { HardhatEthersHelpers } from 'hardhat-deploy-ethers/src/types';
-
+import { HardhatEthersHelpers } from '@nomiclabs/hardhat-ethers/dist/src/types';
+import { ethers } from 'ethers';
+import '@nomiclabs/hardhat-ethers';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import 'hardhat-deploy/src/type-extensions';
 
@@ -20,7 +19,7 @@ export type { HardhatRuntimeEnvironment as HardhatRuntimeEnvironmentT };
 
 export type { Deployment as DeploymentT } from 'hardhat-deploy/types';
 
-export type EthersT = typeof ethers & HardhatRuntimeEnvironment['ethers'];
+export type TEthers = typeof ethers & HardhatEthersHelpers;
 
 // export const castEthersT = (e: (typeof ethers & HardhatEthersHelpers) | any): EthersT => {
 //   return e as EthersT;

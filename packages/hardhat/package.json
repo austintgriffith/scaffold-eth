@@ -8,7 +8,7 @@
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-babel": "^5.3.1",
-    "eslint-plugin-prettier": "^3.1.4"
+    "eslint-plugin-prettier": "^3.4.0"
   },
   "dependencies": {
     "@eth-optimism/hardhat-ovm": "^0.2.2",
@@ -20,7 +20,7 @@
     "chalk": "^4.1.0",
     "ethereum-waffle": "^3.1.1",
     "ethers": "^5.3.0",
-    "hardhat": "2.4.0",
+    "hardhat": "2.4.3",
     "hardhat-deploy": "^0.8.6",
     "node-watch": "^0.7.0",
     "qrcode-terminal": "^0.12.0",

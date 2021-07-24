@@ -6,7 +6,7 @@ import * as hre from 'hardhat';
 import { DeploymentT } from 'helpers/types/hardhat-type-extensions';
 import path from 'path';
 
-const publishGenerated = '../vite-app-ts/src/generated/contracts';
+const publishGenerated = '../vite-app-ts/src/generated';
 const publishDir = `${publishGenerated}/contracts`;
 const deploymentsDir = './generated/deployments';
 const typechainDir = './generated/typechain';

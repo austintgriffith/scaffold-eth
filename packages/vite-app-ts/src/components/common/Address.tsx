@@ -1,10 +1,11 @@
+import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { Skeleton, Typography } from 'antd';
+import { useLookupAddress } from 'eth-hooks/lib/dapps/ens';
 import React, { FC } from 'react';
 import Blockies from 'react-blockies';
-import { PunkBlockie } from '.';
 import { useThemeSwitcher } from 'react-css-theme-switcher';
-import { useLookupAddress } from './hooks';
-import { StaticJsonRpcProvider } from '@ethersproject/providers';
+
+import { PunkBlockie } from '.';
 
 // changed value={address} to address={address}
 
@@ -75,23 +76,22 @@ export const Address: FC<IAddressProps> = ({ punkBlockie = false, size = 'short'
           </span>
         </span>
       );
-    } else {
-      return (
-        <span style={{ verticalAlign: 'middle' }}>
-          <a
-            style={{ color: currentTheme === 'light' ? '#222222' : '#ddd' }}
-            target="_blank"
-            href={etherscanLink}
-            rel="noopener noreferrer">
-            <span style={{ verticalAlign: 'middle', position: 'relative' }}>
-              <div style={{ position: 'absolute', left: -213, top: -68 }}>
-                <PunkBlockie withQr={false} address={address.toLowerCase()} scale={0.35} />
-              </div>
-            </span>
-          </a>
-        </span>
-      );
     }
+    return (
+      <span style={{ verticalAlign: 'middle' }}>
+        <a
+          style={{ color: currentTheme === 'light' ? '#222222' : '#ddd' }}
+          target="_blank"
+          href={etherscanLink}
+          rel="noopener noreferrer">
+          <span style={{ verticalAlign: 'middle', position: 'relative' }}>
+            <div style={{ position: 'absolute', left: -213, top: -68 }}>
+              <PunkBlockie withQr={false} address={address.toLowerCase()} scale={0.35} />
+            </div>
+          </span>
+        </a>
+      </span>
+    );
   }
 
   let text;

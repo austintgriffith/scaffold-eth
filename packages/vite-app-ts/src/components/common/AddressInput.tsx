@@ -1,9 +1,10 @@
 import { CameraOutlined, QrcodeOutlined } from '@ant-design/icons';
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { Badge, Input } from 'antd';
-import { useLookupAddress } from './hooks';
+import { useLookupAddress } from 'eth-hooks/lib/dapps/ens';
 import React, { Dispatch, FC, SetStateAction, useCallback, useState } from 'react';
 import QrReader from 'react-qr-reader';
+
 import { Blockie } from '.';
 
 interface IAddressInputProps {

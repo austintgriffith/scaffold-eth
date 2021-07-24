@@ -2,11 +2,13 @@ import { SendOutlined } from '@ant-design/icons';
 import { StaticJsonRpcProvider } from '@ethersproject/providers';
 import { parseEther } from '@ethersproject/units';
 import { Button, Input, Tooltip } from 'antd';
-import { useLookupAddress } from './hooks';
+import { useLookupAddress } from 'eth-hooks/lib/dapps/ens';
 import React, { FC, useCallback, useState } from 'react';
 import Blockies from 'react-blockies';
-import { transactor } from '~~/helpers';
+
 import { Wallet } from '.';
+
+import { transactor } from '~~/helpers';
 
 // improved a bit by converting address to ens if it exists
 // added option to directly input ens name
@@ -97,7 +99,7 @@ export const Faucet: FC<IFaucetProps> = (props) => {
             />
             <Wallet
               color="#888888"
-              provider={props.localProvider}
+              signer={props.localProvider.getSigner()}
               ensProvider={props.ensProvider}
               price={props.price}
               address={address ?? ''}

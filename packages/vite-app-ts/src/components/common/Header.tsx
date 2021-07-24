@@ -11,11 +11,11 @@ export const Header = () => {
         subTitle={
           <span>
             v2.1 - [
-            <a href="https://youtu.be/aYMj00JoIug" target="_blank">
+            <a href="https://youtu.be/aYMj00JoIug" target="_blank" rel="noreferrer">
               <span style={{ marginRight: 4 }}>🎥 </span> 8min speed run
             </a>
             ] - [
-            <a href="https://trello.com/b/ppbUs796/buidlguidlcom-idea-board" target="_blank">
+            <a href="https://trello.com/b/ppbUs796/buidlguidlcom-idea-board" target="_blank" rel="noreferrer">
               <span style={{ marginRight: 4 }}>💡 </span> trello
             </a>
             ]{' '}

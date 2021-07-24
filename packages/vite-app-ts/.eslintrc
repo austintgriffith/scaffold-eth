@@ -1,13 +1,23 @@
 {
   "parser": "@typescript-eslint/parser", // Specifies the ESLint parser
+  "ignorePatterns": ["**/*.pcss", "**/*.css", "**/*.less", "**/*.json"],
   "parserOptions": {
     "ecmaVersion": 2020, // Allows for the parsing of modern ECMAScript features
     "sourceType": "module", // Allows for the use of imports,
     "ecmaFeatures": {
-      "jsx": true // Allows for the parsing of JSX
+      "jsx": true // Allows for the parsing of JSX,
     },
+    "project": "tsconfig.json",
     "tsconfigRootDir": ".",
-    "projectFolderIgnoreList": ["**/node_modules/**", "dist/**", "build/**", ".yarn", "build-utils"]
+    "projectFolderIgnoreList": [
+      "node_modules/*",
+      "node_modules",
+      "dist",
+      "build",
+      ".yarn",
+      "build-utils",
+      "./src/styles"
+    ]
   },
   "env": {
     "browser": true,
@@ -15,62 +25,78 @@
     "node": true
   },
   "extends": [
-    "airbnb-typescript",
-    "airbnb/hooks",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:import/typescript",
-    "plugin:jest/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:jest/recommended",
+    "plugin:react/recommended",
+    "plugin:tailwind/recommended",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:react/recommended",
-    "plugin:tailwind/recommended"
+    "plugin:@typescript-eslint/recommended-requiring-type-checking"
   ],
-  "plugins": ["prettier", "formatjs", "react", "react-hooks"],
+  "plugins": ["prettier", "react", "react-hooks", "unused-imports", "testing-library"],
   "rules": {
-    "formatjs/no-offset": "error",
-    "formatjs/enforce-description": "off",
-    "formatjs/enforce-default-message": "off",
-    "formatjs/enforce-placeholders": "error",
-    "formatjs/no-multiple-whitespaces": "off",
-    "formatjs/no-multiple-plurals": "error",
+    "eqeqeq": ["error", "smart"],
+    "react/jsx-wrap-multilines": "warn",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "prettier/prettier": 0,
-    "react/jsx-filename-extension": 0,
-    "react/jsx-indent": 0,
-    "react/require-default-props": 0,
-    "react/jsx-one-expression-per-line": 0,
-    "react/jsx-closing-tag-location": 0,
-    "react/jsx-indent-props": 0,
-    "react/jsx-closing-bracket-location": 0,
-    "react/prop-types": 0,
+    "react/jsx-filename-extension": "off",
+    "react/jsx-indent": "off",
+    "react/require-default-props": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-closing-tag-location": "off",
+    "react/jsx-indent-props": "off",
+    "react/jsx-closing-bracket-location": "off",
+    "react/prop-types": "off",
     "react-hooks/rules-of-hooks": "error",
+    "react/display-name": "off",
     "react-hooks/exhaustive-deps": [
       "warn",
       {
         "additionalHooks": "(useRecoilCallback)"
       }
     ],
-    "@typescript-eslint/ban-ts-comment": "off",
-    "@typescript-eslint/no-empty-function": "warn",
-    "no-unused-vars": 0,
-    "@typescript-eslint/no-unused-vars": "warn",
-    "@typescript-eslint/no-use-before-define": ["error"],
-    "@typescript-eslint/no-unsafe-member-access": 0,
-    "@typescript-eslint/no-unsafe-assignment": 0,
-    "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/no-unsafe-call": "warn",
-    "@typescript-eslint/unbound-method": 0,
-    "@typescript-eslint/restrict-template-expressions": ["error", { "allowBoolean": true, "allowNumber": true }],
-    "no-param-reassign": "error",
-    "no-duplicate-imports": "warn",
-    //"dynamic-import-chunkname": "warn",
-    "import/order": [
+    "prettier/prettier": [
       "warn",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "@typescript-eslint/ban-ts-comment": [
+      "warn",
+      {
+        "ts-expect-error": false,
+        "ts-ignore": true,
+        "ts-nocheck": false,
+        "ts-check": false
+      }
+    ],
+    "@typescript-eslint/no-empty-function": "warn",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "unused-imports/no-unused-imports-ts": "warn",
+    "unused-imports/no-unused-vars-ts": [
+      "warn",
+      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
+    ],
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/no-unsafe-assignment": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unsafe-call": "warn",
+    "@typescript-eslint/explicit-function-return-type": "warn",
+    "@typescript-eslint/unbound-method": "off",
+    "@typescript-eslint/no-unsafe-member-access": "warn",
+    "@typescript-eslint/restrict-template-expressions": ["error", { "allowBoolean": true, "allowNumber": true }],
+    "prefer-destructuring": "off",
+    "prefer-template": "off",
+    "react/destructuring-assignment": "off",
+    "no-param-reassign": "error",
+    "import/order": [
+      "off",
       {
         "alphabetize": {
           "order": "asc" /* sort in ascending order. Options: ['ignore', 'asc', 'desc'] */,
@@ -79,9 +105,16 @@
         "newlines-between": "always"
       }
     ],
-    "import/extensions": 0,
-    "import/no-unresolved": 0,
-    "import/prefer-default-export": 0,
+    "no-duplicate-imports": "warn",
+    "import/named": "off",
+    "import/namespace": "off",
+    "import/default": "off",
+    "import/no-named-as-default-member": "error",
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "import/no-unused-modules": ["off"],
+    "import/no-unassigned-import": "off",
     "import/no-extraneous-dependencies": [
       "error",
       {
@@ -90,19 +123,22 @@
         "peerDependencies": false
       }
     ],
+    "no-underscore-dangle": ["warn", { "allow": ["_network", "_lastBlockNumber"] }],
     "sort-keys": "off",
     "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": ["off"],
     "no-use-before-define": "off",
     "spaced-comment": "warn",
-    "max-len": 0,
-    "indent": 0,
-    "no-console": 0,
-    "arrow-body-style": 0,
+    "max-len": "off",
+    "indent": "off",
+    "no-console": "off",
+    "arrow-body-style": "off",
     "no-multiple-empty-lines": "warn",
     "no-restricted-globals": "off",
-    "eslint linebreak-style": 0,
-    "object-curly-newline": 0,
-    "no-shadow": 0
+    "eslint linebreak-style": "off",
+    "object-curly-newline": "off",
+    "no-shadow": "off",
+    "no-void": ["error", { "allowAsStatement": true }]
   },
   "settings": {
     "react": {
@@ -111,7 +147,7 @@
       "pragma": "React", // Pragma to use, default to "React"
       "fragment": "Fragment", // Fragment to use (may be a property of <pragma>), default to "Fragment"
       "version": "detect" // React version. "detect" automatically picks the version you have installed.
-      // You can also use `16.0`, `16.3`, etc, if you want to override the detected value.
+      // You can also use `16."off"`, `16.3`, etc, if you want to override the detected value.
       // default to latest and warns if missing
       // It will default to "detect" in the future
     }

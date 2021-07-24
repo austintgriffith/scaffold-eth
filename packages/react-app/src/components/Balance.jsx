@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useBalance } from "../hooks";
+import { useBalance } from "eth-hooks";
 
 const { utils } = require("ethers");
 

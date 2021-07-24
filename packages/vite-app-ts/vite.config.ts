@@ -20,6 +20,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '~~': resolve(__dirname, 'src'),
+      /** browserify for web3 components */
       stream: 'stream-browserify',
       http: 'http-browserify',
       https: 'http-browserify',

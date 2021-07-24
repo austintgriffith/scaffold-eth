@@ -1,38 +1,12 @@
-import { JsonRpcProvider, StaticJsonRpcProvider, Web3Provider } from '@ethersproject/providers';
+import { Provider } from '@ethersproject/providers';
 import { formatEther } from '@ethersproject/units';
+import { useBalance } from 'eth-hooks';
 import { BigNumber } from 'ethers';
 import React, { FC, useState } from 'react';
-import { useBalance } from './hooks';
-
-/*
-  ~ What it does? ~
-
-  Displays a balance of given address in ether & dollar
-
-  ~ How can I use? ~
-
-  <Balance
-    address={address}
-    provider={mainnetProvider}
-    price={price}
-  />
-
-  ~ If you already have the balance as a bignumber ~
-  <Balance
-    balance={balance}
-    price={price}
-  />
-
-  ~ Features ~
-
-  - Provide address={address} and get balance corresponding to given address
-  - Provide provider={mainnetProvider} to access balance on mainnet or any other network (ex. localProvider)
-  - Provide price={price} of ether and get your balance converted to dollars
-*/
 
 interface IBalanceProps {
   address: string;
-  provider: JsonRpcProvider | Web3Provider | undefined;
+  provider: Provider | undefined;
   price?: number;
   balance?: BigNumber;
   dollarMultiplier?: number;
@@ -53,9 +27,6 @@ interface IBalanceProps {
 export const Balance: FC<IBalanceProps> = ({ size = 'short', ...rest }) => {
   const props = { ...rest, size };
   const [dollarMode, setDollarMode] = useState(true);
-
-  // const [listening, setListening] = useState(false);
-
   const balance = useBalance(props.provider, props.address);
 
   let floatBalance = parseFloat('0.00');
@@ -68,7 +39,6 @@ export const Balance: FC<IBalanceProps> = ({ size = 'short', ...rest }) => {
 
   if (usingBalance) {
     const etherBalance = formatEther(usingBalance);
-    parseFloat(etherBalance).toFixed(2);
     floatBalance = parseFloat(etherBalance);
   }
 

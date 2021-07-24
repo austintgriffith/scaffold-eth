@@ -8,7 +8,7 @@
     "esModuleInterop": false,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "typeRoots": ["node_modules/@types", "helpers/definitions"] /* List of folders to include type definitions from. */,
+    "typeRoots": ["node_modules/@types", "helpers/types"] /* List of folders to include type definitions from. */,
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "moduleResolution": "Node",
@@ -25,7 +25,6 @@
       "~~/*": ["./src/*"]
     }
   },
-  "include": ["./src", "types"],
-  "exclude": ["**/node_modules", ".husky", "./src/styles/css", "./tailwind.config.js"],
-  "files": ["src/helpers/types/__global.ts", "src/components/common/hooks/contractConstants.ts"]
+  "include": ["src", "./src/helpers/types/__global.ts", "src/**/*"],
+  "exclude": ["**/node_modules", ".husky", "./src/styles/css", "./tailwind.config.js", "node_modules"]
 }

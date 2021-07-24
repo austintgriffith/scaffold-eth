@@ -27,7 +27,7 @@ All the typescript yarn commands have a postfix of `-ts` See the quick start sec
 
 # 🏄‍♂️ Quick Start
 
-Prerequisites: [Node](https://nodejs.org/dist/latest-v12.x/) plus [Yarn](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
+Prerequisites: [Node](https://nodejs.org/en/download/) plus [Yarn](https://classic.yarnpkg.com/en/docs/install/) and [Git](https://git-scm.com/downloads)
 
 
 > clone/fork 🏗 scaffold-eth:

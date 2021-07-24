@@ -57,28 +57,27 @@ export const EtherInput: FC<IEtherInputProps> = (props) => {
   const option = (title: string) => {
     if (props?.price != null) {
       return <></>;
-    } else {
-      return (
-        <div
-          style={{ cursor: 'pointer' }}
-          onClick={() => {
-            if (mode === 'USD') {
-              setMode('ETH');
-              setDisplay(currentValue);
-            } else {
-              setMode('USD');
-              if (currentValue) {
-                const usdValue = '' + (parseFloat(currentValue) * props.price!).toFixed(2);
-                setDisplay(usdValue);
-              } else {
-                setDisplay(currentValue);
-              }
-            }
-          }}>
-          {title}
-        </div>
-      );
     }
+    return (
+      <div
+        style={{ cursor: 'pointer' }}
+        onClick={() => {
+          if (mode === 'USD') {
+            setMode('ETH');
+            setDisplay(currentValue);
+          } else {
+            setMode('USD');
+            if (currentValue) {
+              const usdValue = '' + (parseFloat(currentValue) * props.price!).toFixed(2);
+              setDisplay(usdValue);
+            } else {
+              setDisplay(currentValue);
+            }
+          }
+        }}>
+        {title}
+      </div>
+    );
   };
 
   let prefix;

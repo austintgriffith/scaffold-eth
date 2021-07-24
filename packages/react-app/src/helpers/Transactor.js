@@ -29,10 +29,10 @@ export default function Transactor(providerOrSigner, gasPrice, etherscan) {
       }
 
       console.log("network", network);
-      
-      var options = null;
-      var notify = null;
-      if(navigator.onLine){
+
+      let options = null;
+      let notify = null;
+      if (navigator.onLine) {
         options = {
           dappId: BLOCKNATIVE_DAPPID, // GET YOUR OWN KEY AT https://account.blocknative.com
           system: "ethereum",
@@ -45,11 +45,10 @@ export default function Transactor(providerOrSigner, gasPrice, etherscan) {
               possibleFunction(txInformation.transaction);
             }
           },
-        };  
+        };
 
         notify = Notify(options);
       }
-       
 
       let etherscanNetwork = "";
       if (network.name && network.chainId > 1) {
@@ -120,7 +119,14 @@ export default function Transactor(providerOrSigner, gasPrice, etherscan) {
       } catch (e) {
         if (DEBUG) console.log(e);
         // Accounts for Metamask and default signer on all networks
-        let message = e.data && e.data.message ? e.data.message : e.error && JSON.parse(JSON.stringify(e.error)).body ? JSON.parse(JSON.parse(JSON.stringify(e.error)).body).error.message : e.data ? e.data : JSON.stringify(e);
+        const message =
+          e.data && e.data.message
+            ? e.data.message
+            : e.error && JSON.parse(JSON.stringify(e.error)).body
+            ? JSON.parse(JSON.parse(JSON.stringify(e.error)).body).error.message
+            : e.data
+            ? e.data
+            : JSON.stringify(e);
 
         console.log("Transaction Error:", message);
         notification.error({

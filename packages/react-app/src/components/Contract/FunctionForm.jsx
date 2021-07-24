@@ -1,6 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/accessible-emoji */
 import { Button, Col, Divider, Input, Row, Tooltip } from "antd";
 import React, { useState } from "react";
 import Blockies from "react-blockies";

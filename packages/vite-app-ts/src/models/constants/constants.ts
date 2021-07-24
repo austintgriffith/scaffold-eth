@@ -9,7 +9,7 @@ export const BLOCKNATIVE_DAPPID = '0b58206a-f3c0-4701-a62f-73c7243e8c77';
 
 // EXTERNAL CONTRACTS
 
-//------ added by save script:
+// ------ added by save script:
 export const mainStreamReader_ADDRESS = '0x710644C199549925E065a551b51B848d8725Bd0A';
 
 export const mainStreamReader_ABI = [
@@ -638,10 +638,10 @@ export const BUILDS = [
       branch: "",
       readMore: "",
       image: ""
-    }*/
+    } */
 ];
 
-//--------------------------------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------------------------------
 
 export const BUILDERS = [
   {
@@ -650,7 +650,7 @@ export const BUILDERS = [
     address: '0x775af9b7c214fe8792ab5f5da61a8708591d517e',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=ipatka',
     builds: [],
-    streamAddress: '0x21BD856523f62Dd2A6eDBa750E97bD106204D5f2', //"0x90FC815Fe9338BB3323bAC84b82B9016ED021e70",
+    streamAddress: '0x21BD856523f62Dd2A6eDBa750E97bD106204D5f2', // "0x90FC815Fe9338BB3323bAC84b82B9016ED021e70",
     streamUrl: 'http://isaacpatka.buidlguidl.com',
   },
   {
@@ -659,7 +659,7 @@ export const BUILDERS = [
     address: '0xfd4c0f5848642fc2041c003cb684fc66b16217bc',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=pabloruiz55',
     builds: [],
-    streamAddress: '0xB3A51b63B7f1Bcb8600FF67E4a69C7B690994a89', //"0x90FC815Fe9338BB3323bAC84b82B9016ED021e70",
+    streamAddress: '0xB3A51b63B7f1Bcb8600FF67E4a69C7B690994a89', // "0x90FC815Fe9338BB3323bAC84b82B9016ED021e70",
     streamUrl: 'http://pabloruiz.buidlguidl.com',
   },
   {
@@ -668,7 +668,7 @@ export const BUILDERS = [
     address: '0x50eccad809d553335a8eb7bfec2cee5a6f2cde43',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=btogzhan2000',
     builds: [],
-    streamAddress: '0x3B60b34Aa5dEAFF586D3841AD62b4aa730e11ceC', //"0x90FC815Fe9338BB3323bAC84b82B9016ED021e70",
+    streamAddress: '0x3B60b34Aa5dEAFF586D3841AD62b4aa730e11ceC', // "0x90FC815Fe9338BB3323bAC84b82B9016ED021e70",
     streamUrl: 'http://togzhan.buidlguidl.com',
   },
   {
@@ -677,7 +677,7 @@ export const BUILDERS = [
     address: '0x1e2ce012b27d0c0d3e717e943ef6e62717cec4ea',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=ironsoul0',
     builds: ['xnft', 'honeypot', 'dos', 'flash', 'highestbid', 'merklenft', 'paymentchannel'],
-    streamAddress: '0xDbcD66b510191cD0539F7FAe8cD981B82Ee2006f', //"0x90FC815Fe9338BB3323bAC84b82B9016ED021e70",
+    streamAddress: '0xDbcD66b510191cD0539F7FAe8cD981B82Ee2006f', // "0x90FC815Fe9338BB3323bAC84b82B9016ED021e70",
     streamUrl: 'http://ironsoul.buidlguidl.com',
   },
   {
@@ -686,7 +686,7 @@ export const BUILDERS = [
     address: '0x2DdA8dc2f67f1eB94b250CaEFAc9De16f70c5A51',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=viraj124',
     builds: ['xnft', 'proxy', 'diamond', 'highestbid', 'merklenft', 'paymentchannel', 'bondingcurve'],
-    streamAddress: '0x974a061A8cE5a2b07cB3f1D356Bb01Daaa9eC31d', //"0x21e18260357D33d2e18482584a8F39D532fb71cC",
+    streamAddress: '0x974a061A8cE5a2b07cB3f1D356Bb01Daaa9eC31d', // "0x21e18260357D33d2e18482584a8F39D532fb71cC",
     streamUrl: 'http://viraz.buidlguidl.com',
   },
   {
@@ -695,7 +695,7 @@ export const BUILDERS = [
     address: '0x7b945ffe9725d8e05343bec36c0eced294097f78',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=ironsoul0',
     builds: ['xnft', 'rokens', 'highestbid', 'merklenft', 'paymentchannel'],
-    streamAddress: '0x1eB6Da6F03B6D3C0d8da0B127388Add4d78Eb652', //"0xd116179A26F7b36Ed7B3334679aD0B2ec8c5ec22",
+    streamAddress: '0x1eB6Da6F03B6D3C0d8da0B127388Add4d78Eb652', // "0xd116179A26F7b36Ed7B3334679aD0B2ec8c5ec22",
     streamUrl: 'http://sadda11asm.buidlguidl.com',
   },
   {
@@ -704,7 +704,7 @@ export const BUILDERS = [
     address: '0x1245e96fe32B43dDEc930D662B5d20239282b876',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=amogh-jrules',
     builds: ['smms', 'push', 'metamultisig'],
-    streamAddress: '0xA267be6eF185f7563354e90882c1d3332455B8F8', //"0x298F4Af778954d771A6Fc6098AFc0a19f35d3dAA",
+    streamAddress: '0xA267be6eF185f7563354e90882c1d3332455B8F8', // "0x298F4Af778954d771A6Fc6098AFc0a19f35d3dAA",
     streamUrl: 'http://amogh.buidlguidl.com',
   },
   {
@@ -713,7 +713,7 @@ export const BUILDERS = [
     address: '0x614ae4c6eb91cec9e6e178549c0745a827212b24',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=calvbore',
     builds: [],
-    streamAddress: '0x864Fa2F20e414c9534B1DE567a30a77436c7a745', //"0x0dE7a22627b68F51bBE22f408e009146D6c56ee1",
+    streamAddress: '0x864Fa2F20e414c9534B1DE567a30a77436c7a745', // "0x0dE7a22627b68F51bBE22f408e009146D6c56ee1",
     streamUrl: 'http://calvinquin.buidlguidl.com',
   },
 
@@ -723,7 +723,7 @@ export const BUILDERS = [
     address: '0x4ceb8dC70813fFbB2d8d6DC0755086698F977613',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=ssteiger',
     builds: ['ethdev'],
-    streamAddress: '0x24aAc13141DbE8946433215bfdc793C2B71398c8', //"0x271C2Fb694F38bE3FA7e6374D349A714c7E8Bba7",//streamAddress: "0x7D6DAdfb6df8ebe6fCB1C32af55252F04D79Df85",
+    streamAddress: '0x24aAc13141DbE8946433215bfdc793C2B71398c8', // "0x271C2Fb694F38bE3FA7e6374D349A714c7E8Bba7",//streamAddress: "0x7D6DAdfb6df8ebe6fCB1C32af55252F04D79Df85",
     streamUrl: 'http://ssteiger.buidlguidl.com',
   },
   {
@@ -732,8 +732,8 @@ export const BUILDERS = [
     address: '0xa4ca1b15fe81f57cb2d3f686c7b13309906cd37b',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=codenamejason',
     builds: ['vrf'],
-    streamAddress: '0x733F7E1aEdC49c7c777c29C4bE2eB772666552F4', //"0x1B8bB82bF08D69bDFb0287F6C16Fa739Aa6e95f2",//"0x45283840c879DBA341170FaFA62542F7714BFE8f",
-    streamUrl: 'http://rawcipher.buidlguidl.com', //rawcipherstream.surge.sh
+    streamAddress: '0x733F7E1aEdC49c7c777c29C4bE2eB772666552F4', // "0x1B8bB82bF08D69bDFb0287F6C16Fa739Aa6e95f2",//"0x45283840c879DBA341170FaFA62542F7714BFE8f",
+    streamUrl: 'http://rawcipher.buidlguidl.com', // rawcipherstream.surge.sh
   },
   {
     name: 'mrdee.eth',
@@ -741,7 +741,7 @@ export const BUILDERS = [
     address: '0xd2f016809969b4105978fDD5b112CD95bFDd6814',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=azf20',
     builds: [],
-    streamAddress: '0xD31aDDE3c6659653f5BdCb237afB353155db1567', //"0xF48BECEa4C65F0c2F3841ed00E813298C8B327ab",
+    streamAddress: '0xD31aDDE3c6659653f5BdCb237afB353155db1567', // "0xF48BECEa4C65F0c2F3841ed00E813298C8B327ab",
     streamUrl: 'http://mrdee.buidlguidl.com',
   },
   {
@@ -750,7 +750,7 @@ export const BUILDERS = [
     address: '0x5c43B1eD97e52d009611D89b74fA829FE4ac56b1',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=pileofscraps',
     builds: [],
-    streamAddress: '0x0A9eDE9A66683F23d369FC6bAAA9D1fa7198Ebf2', //dup"0x2eC099fE9547A1Ac760Bd1C9bBE710218624Bf3f"//"0x2eC099fE9547A1Ac760Bd1C9bBE710218624Bf3f",
+    streamAddress: '0x0A9eDE9A66683F23d369FC6bAAA9D1fa7198Ebf2', // dup"0x2eC099fE9547A1Ac760Bd1C9bBE710218624Bf3f"//"0x2eC099fE9547A1Ac760Bd1C9bBE710218624Bf3f",
     streamUrl: 'http://pileofscraps.buidlguidl.com/',
   },
   {
@@ -759,7 +759,7 @@ export const BUILDERS = [
     address: '0xf7e89E45502890381F9242403eA8661fad89Ca79',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=azf20',
     builds: ['xnft'],
-    streamAddress: '0x560Dd59ED235446d04da7C907289E3f88e685447', //dup"0x2eC099fE9547A1Ac760Bd1C9bBE710218624Bf3f"//"0x2eC099fE9547A1Ac760Bd1C9bBE710218624Bf3f",
+    streamAddress: '0x560Dd59ED235446d04da7C907289E3f88e685447', // dup"0x2eC099fE9547A1Ac760Bd1C9bBE710218624Bf3f"//"0x2eC099fE9547A1Ac760Bd1C9bBE710218624Bf3f",
     streamUrl: 'http://hunterchang.buidlguidl.com',
   },
 
@@ -769,7 +769,7 @@ export const BUILDERS = [
     address: '0x60Ca282757BA67f3aDbF21F3ba2eBe4Ab3eb01fc',
     github: 'https://github.com/austintgriffith/scaffold-eth/commits?author=azf20',
     builds: ['niftyink', 'uniswapper', 'lender', 'ape', 'op', 'signatorio'],
-    streamAddress: '0x754A8a09Eae2FFEFbDE706a6ed40C0f0F3c58d7e', //"0xdC1d9454CBa690E0a33abeB08de1DD6921b15759",//"0x79Eeda2a3cdB90129A3Dc851556AeaF25DdF1E39",
+    streamAddress: '0x754A8a09Eae2FFEFbDE706a6ed40C0f0F3c58d7e', // "0xdC1d9454CBa690E0a33abeB08de1DD6921b15759",//"0x79Eeda2a3cdB90129A3Dc851556AeaF25DdF1E39",
     streamUrl: 'http://adamfuller.buidlguidl.com',
   },
 
@@ -791,7 +791,7 @@ export const BUILDERS = [
       'randomimage',
       'gtgs',
     ],
-    streamAddress: '0x518Af5F20bf07C882e17731207761C174AB4F9c4', //"0xb0D25772CB076cb4cE90a0c4dfdba6Cad07921a1",
+    streamAddress: '0x518Af5F20bf07C882e17731207761C174AB4F9c4', // "0xb0D25772CB076cb4cE90a0c4dfdba6Cad07921a1",
     streamUrl: 'http://austingriffith.buidlguidl.com',
   },
 ];

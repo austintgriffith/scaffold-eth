@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/accessible-emoji */
 import { gql, useQuery } from '@apollo/client';
 import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
 import { Button, Input, Table, Typography } from 'antd';
@@ -7,7 +6,8 @@ import { Contract } from 'ethers';
 import GraphiQL from 'graphiql';
 import 'graphiql/graphiql.min.css';
 import fetch from 'isomorphic-fetch';
-import React, { FC, useState } from 'react';
+import React, { FC, ReactElement, useState } from 'react';
+
 import { Address } from '~~/components/common';
 
 const highlight: React.CSSProperties = {
@@ -26,31 +26,32 @@ interface ISubgraphProps {
 }
 
 export const Subgraph: FC<ISubgraphProps> = (props) => {
-  function graphQLFetcher(graphQLParams: any) {
-    return fetch(props.subgraphUri, {
+  const graphQLFetcher = async (graphQLParams: any): Promise<Record<string, any>> => {
+    const response = await fetch(props.subgraphUri, {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(graphQLParams),
-    }).then((response: any) => response.json());
-  }
+    });
+    return response.json() as Record<string, any>;
+  };
 
   const EXAMPLE_GRAPHQL = `
-  {
-    purposes(first: 25, orderBy: createdAt, orderDirection: desc) {
-      id
-      purpose
-      createdAt
-      sender {
+    {
+      purposes(first: 25, orderBy: createdAt, orderDirection: desc) {
         id
+        purpose
+        createdAt
+        sender {
+          id
+        }
+      }
+      senders {
+        id
+        address
+        purposeCount
       }
     }
-    senders {
-      id
-      address
-      purposeCount
-    }
-  }
-  `;
+    `;
   const EXAMPLE_GQL = gql(EXAMPLE_GRAPHQL);
   const { loading, data } = useQuery(EXAMPLE_GQL, { pollInterval: 2500 });
 
@@ -63,13 +64,15 @@ export const Subgraph: FC<ISubgraphProps> = (props) => {
     {
       title: 'Sender',
       key: 'id',
-      render: (record: any) => <Address address={record.sender.id} ensProvider={props.mainnetProvider} fontSize={16} />,
+      render: (record: any): ReactElement => (
+        <Address address={record.sender.id} ensProvider={props.mainnetProvider} fontSize={16} />
+      ),
     },
     {
       title: 'createdAt',
       key: 'createdAt',
       dataIndex: 'createdAt',
-      render: (d: number) => new Date(d * 1000).toISOString(),
+      render: (d: number): string => new Date(d * 1000).toISOString(),
     },
   ];
 
@@ -166,12 +169,12 @@ export const Subgraph: FC<ISubgraphProps> = (props) => {
       <div style={{ width: 780, margin: 'auto', paddingBottom: 64 }}>
         <div style={{ margin: 32, textAlign: 'right' }}>
           <Input
-            onChange={(e) => {
+            onChange={(e): void => {
               setNewPurpose(e.target.value);
             }}
           />
           <Button
-            onClick={() => {
+            onClick={(): void => {
               console.log('newPurpose', newPurpose);
               /* look how you call setPurpose on your contract: */
               props.tx(props.writeContracts.YourContract.setPurpose(newPurpose));
@@ -180,7 +183,7 @@ export const Subgraph: FC<ISubgraphProps> = (props) => {
           </Button>
         </div>
 
-        {data ? (
+        {data?.purposes ? (
           <Table dataSource={data.purposes} columns={purposeColumns} rowKey="id" />
         ) : (
           <Typography>{loading ? 'Loading...' : deployWarning}</Typography>

@@ -2,3 +2,5 @@
 *
 # Except this file
 !.gitignore
+!contracts
+!/contracts/external_contracts.js
