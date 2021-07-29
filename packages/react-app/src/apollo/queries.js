@@ -44,6 +44,26 @@ export const TOP_ARTISTS_QUERY = gql`
   }
 `;
 
+export const TOP_COLLECTORS_QUERY = gql`
+  query users($first: Int, $orderBy: String, $orderDirection: String, $createdAt: Int, $filters: User_filter) {
+    users(first: $first, orderBy: $orderBy, orderDirection: $orderDirection, createdAt: $createdAt) {
+    	tokenCount
+      saleCount
+      purchaseCount
+      address
+      tokens (where : {lastTransferAt_gt: $createdAt}){
+        lastTransferAt
+      }
+      sales (where : {createdAt_gt: $createdAt}) {
+        createdAt
+      }
+      purchases (where : {createdAt_gt: $createdAt}) {
+        createdAt
+      }
+    }
+  }
+`;
+
 export const INKS_QUERY = gql`
   query inks($first: Int, $skip: Int) {
     inks(first: $first, skip: $skip, orderBy: createdAt, orderDirection: desc, where: { burned: false }) {

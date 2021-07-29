@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "react-apollo";
 import { TOP_ARTISTS_QUERY } from "./apollo/queries";
-import { Row, Form, Select } from "antd";
+import { Row, Form, Select, Tabs } from "antd";
 import { Loader, Address } from "./components";
+import LeaderboardCollectors from "./LeaderboardCollectors";
+const { TabPane } = Tabs;
 const dayjs = require('dayjs');
 
 const { Option } = Select;
@@ -109,76 +111,84 @@ export default function Leaderboard(props) {
     if (error) return `Error! ${error.message}`;
     
     return (
-        <div style={{maxWidth: 700, margin: "0 auto", textAlign: "left" }}>
-        <Row justify="end" align="center">
-            <Form
-                layout={"inline"}
-                initialValues={{ orderBy: orderBy }}
-            >
-                <Form.Item name="orderBy">
-                    <Select value={orderBy} style={{ width: 120 }} size="large"
-                      onChange={(val) => {
-                        searchParams.set("orderBy", val)
-                        history.push(`${location.pathname}?${searchParams.toString()}`);
-                        setArtists([])
-                        setOrderBy(val)
-                        }
-                      }>
-                        <Option value="earnings">Sales</Option>
-                        <Option value="likeCount">Likes</Option>
-                        <Option value="inkCount">Inks count</Option>
-                    </Select>
-                </Form.Item>   
-            </Form>
-            <Form
-                layout={"inline"}
-                initialValues={{ period: period }}
-            >
-                <Form.Item name="period">
-                    <Select value={period} style={{ width: 120 }} size="large"
-                      onChange={(val) => {
-                        searchParams.set("period", val)
-                        history.push(`${location.pathname}?${searchParams.toString()}`);
-                        setArtists([])
-                        setPeriod(val)
-                        }
-                      }>
-                        <Option value="alltime">All-time</Option>
-                        <Option value="lastmonth">Last 30 days</Option>
-                        <Option value="lastweek">Last 7 days</Option>
-                    </Select>
-                </Form.Item>   
-            </Form>
-        </Row>
-        <Row justify="center">
-        <div className="artists-leaderboard">
-            <ul>
-               { artists.length > 0 ? artists.map((artist, i) => 
-               <li key={artist.address} className="artists-leadboard-entry">       
-                    <div className="artists-leadboard-entry-rank">
-                        <h3>
-                            {emojifyTop3(i+1)}
-                        </h3>
-                    </div>
-
-                    <div className="artists-leadboard-entry-address">
-                        <Link
-                            to={{pathname: "/artist/"+artist.address}}
-                            style={{ color: "black" }}
+        <Tabs defaultActiveKey="1" centered={true} style={{textAlign:'center'}}>
+            <TabPane tab="Artists" key="1">
+                <div style={{maxWidth: 700, margin: "0 auto", textAlign: "left" }}>
+                    <Row justify="end" align="center">
+                        <Form
+                            layout={"inline"}
+                            initialValues={{ orderBy: orderBy }}
                         >
-                            <Address value={artist.address} ensProvider={props.mainnetProvider} clickable={false} notCopyable={true} />
-                        </Link>
-                        
-                    </div>
-                    <div className="artists-leadboard-entry-stats">
-                        <p><span role="img" aria-label="Dollar Sign">💲</span> Earnings: ${(parseInt(artist.earnings) / 1e18).toFixed(2)}</p>
-                        <p><span role="img" aria-label="Framed Picture">🖼️</span> Total Inks: {artist.inkCount}</p> 
-                        <p><span role="img" aria-label="Thumbs Up">👍</span> Total likes: {artist.likeCount}</p>
-                    </div>
-                </li> ) : null }
-            </ul>
-       </div>
-        </Row>                   
-            </div>
+                            <Form.Item name="orderBy">
+                                <Select value={orderBy} style={{ width: 120 }} size="large"
+                                onChange={(val) => {
+                                    searchParams.set("orderBy", val)
+                                    history.push(`${location.pathname}?${searchParams.toString()}`);
+                                    setArtists([])
+                                    setOrderBy(val)
+                                    }
+                                }>
+                                    <Option value="earnings">Sales</Option>
+                                    <Option value="likeCount">Likes</Option>
+                                    <Option value="inkCount">Inks count</Option>
+                                </Select>
+                            </Form.Item>   
+                        </Form>
+                        <Form
+                            layout={"inline"}
+                            initialValues={{ period: period }}
+                        >
+                            <Form.Item name="period">
+                                <Select value={period} style={{ width: 120 }} size="large"
+                                onChange={(val) => {
+                                    searchParams.set("period", val)
+                                    history.push(`${location.pathname}?${searchParams.toString()}`);
+                                    setArtists([])
+                                    setPeriod(val)
+                                    }
+                                }>
+                                    <Option value="alltime">All-time</Option>
+                                    <Option value="lastmonth">Last 30 days</Option>
+                                    <Option value="lastweek">Last 7 days</Option>
+                                </Select>
+                            </Form.Item>   
+                        </Form>
+                    </Row>
+                    <Row justify="center">
+                        <div className="artists-leaderboard">
+                            <ul>
+                            { artists.length > 0 ? artists.map((artist, i) => 
+                            <li key={artist.address} className="artists-leadboard-entry">       
+                                    <div className="artists-leadboard-entry-rank">
+                                        <h3>
+                                            {emojifyTop3(i+1)}
+                                        </h3>
+                                    </div>
+
+                                    <div className="artists-leadboard-entry-address">
+                                        <Link
+                                            to={{pathname: "/artist/"+artist.address}}
+                                            style={{ color: "black" }}
+                                        >
+                                            <Address value={artist.address} ensProvider={props.mainnetProvider} clickable={false} notCopyable={true} />
+                                        </Link>
+                                        
+                                    </div>
+                                    <div className="artists-leadboard-entry-stats">
+                                        <p><span role="img" aria-label="Dollar Sign">💲</span> Earnings: ${(parseInt(artist.earnings) / 1e18).toFixed(2)}</p>
+                                        <p><span role="img" aria-label="Framed Picture">🖼️</span> Total Inks: {artist.inkCount}</p> 
+                                        <p><span role="img" aria-label="Thumbs Up">👍</span> Total likes: {artist.likeCount}</p>
+                                    </div>
+                                </li> ) : null }
+                            </ul>
+                        </div>
+                    </Row>                   
+                </div>
+            </TabPane>
+            <TabPane tab="Collectors" key="2">
+                <LeaderboardCollectors />
+            </TabPane>
+        </Tabs>
+        
     )
 }
