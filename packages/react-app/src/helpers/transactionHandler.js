@@ -25,7 +25,7 @@ export async function transactionHandler(c) {
     function chainWarning(network, chainId) {
         Modal.warning({
           title: 'MetaMask Network Mismatch',
-          content: <><p>Nifty Ink is built on xDai: please change your MetaMask Network to point to the <a href="https://www.xdaichain.com/" target="_blank">xDai Chain</a></p><p>You will need to create a custom RPC with the following URL: <b>https://dai.poa.network</b></p></>,
+          content: <><img src="/customRPCHint.png"  style={{position: "fixed", right:0, top:0}} /><p>Nifty Ink is built on xDai: please change your MetaMask Network to point to the <a href="https://www.xdaichain.com/" target="_blank">xDai Chain</a></p><p>You will need to create a custom RPC with the following URL: <b>https://dai.poa.network</b></p></>,
         });
       }
 
