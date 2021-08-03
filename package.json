@@ -63,6 +63,7 @@
     ]
   },
   "dependencies": {
-    "react-stack-grid": "^0.7.1"
+    "react-stack-grid": "^0.7.1",
+    "@ethereumjs/vm": "^5.5.1"
   }
 }
