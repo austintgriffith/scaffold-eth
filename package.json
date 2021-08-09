@@ -32,6 +32,7 @@
     "s3": "yarn workspace @scaffold-eth/react-app s3",
     "ship": "yarn workspace @scaffold-eth/react-app ship",
     "generate": "yarn workspace @scaffold-eth/hardhat generate",
+    "gen-interface": "yarn workspace @scaffold-eth/hardhat gen-interface",
     "account": "yarn workspace @scaffold-eth/hardhat account",
     "mineContractAddress": "cd packages/hardhat && npx hardhat mineContractAddress",
     "wallet": "cd packages/hardhat && npx hardhat wallet",

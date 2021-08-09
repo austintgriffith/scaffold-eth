@@ -10,6 +10,8 @@ require("hardhat-deploy");
 require("@eth-optimism/hardhat-ovm");
 require("@nomiclabs/hardhat-ethers");
 
+require("hardhat-interface-generator");
+
 const { isAddress, getAddress, formatUnits, parseUnits } = utils;
 
 /*
