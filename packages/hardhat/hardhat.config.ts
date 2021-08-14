@@ -1,6 +1,7 @@
 import '@nomiclabs/hardhat-ethers';
 import '@nomiclabs/hardhat-waffle';
 import '@typechain/hardhat';
+import 'hardhat-packager';
 import { task } from 'hardhat/config';
 import { HardhatUserConfig } from 'hardhat/types';
 
@@ -29,6 +30,9 @@ const config: HardhatUserConfig = {
     hardhat: {
       chainId: 1337,
     },
+  },
+  packager: {
+    contracts: ["YourContract"],
   },
   typechain: {
     outDir: '../frontend/types/typechain',

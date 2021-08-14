@@ -6,13 +6,14 @@
   "scripts": {
     "chain": "npx hardhat node",
     "compile": "npx hardhat compile",
+    "package": "npx hardhat prepare-package",
     "deploy": "npx hardhat run scripts/deploy.ts --network localhost"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-waffle": "^2.0.1",
     "@typechain/ethers-v5": "^7.0.1",
-    "@typechain/hardhat": "^2.0.2",
+    "@typechain/hardhat": "^2.2.0",
     "@types/chai": "^4.2.18",
     "@types/mocha": "^8.2.2",
     "@types/node": "^15.12.2",
@@ -20,8 +21,9 @@
     "ethereum-waffle": "^3.3.0",
     "ethers": "^5.2.0",
     "hardhat": "^2.3.0",
+    "hardhat-packager": "^1.0.4",
     "ts-node": "^10.0.0",
-    "typechain": "^5.0.0",
+    "typechain": "^5.1.2",
     "typescript": "^4.3.2"
   }
 }
