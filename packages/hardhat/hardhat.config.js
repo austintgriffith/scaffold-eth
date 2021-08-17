@@ -47,6 +47,11 @@ module.exports = {
         (you can put in a mnemonic here to set the deployer locally)
       */
     },
+    networks: {
+      hardhat: {
+        chainId: 1337,
+      },
+    },
     rinkeby: {
       url: "https://rinkeby.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad", //<---- YOUR INFURA ID! (or it won't work)
       accounts: {
