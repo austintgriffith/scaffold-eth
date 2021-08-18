@@ -1,6 +1,6 @@
 import { CameraOutlined, QrcodeOutlined } from "@ant-design/icons";
 import { Badge, Input } from "antd";
-import { useLookupAddress } from "eth-hooks";
+import { useLookupAddress } from "eth-hooks/lib/dapps/ens";
 import React, { useCallback, useState } from "react";
 import QrReader from "react-qr-reader";
 import Blockie from "./Blockie";
@@ -65,7 +65,7 @@ export default function AddressInput(props) {
               address = possibleAddress;
             }
             // eslint-disable-next-line no-empty
-          } catch (e) {}
+          } catch (e) { }
         }
         setValue(address);
         if (typeof onChange === "function") {

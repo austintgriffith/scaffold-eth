@@ -1,6 +1,6 @@
 import { SendOutlined } from "@ant-design/icons";
 import { Button, Input, Tooltip } from "antd";
-import { useLookupAddress } from "eth-hooks";
+import { useLookupAddress } from "eth-hooks/lib/dapps/ens";
 import React, { useCallback, useState, useEffect } from "react";
 import Blockies from "react-blockies";
 import { Transactor } from "../helpers";
@@ -71,7 +71,7 @@ export default function Faucet(props) {
               address = possibleAddress;
             }
             // eslint-disable-next-line no-empty
-          } catch (e) {}
+          } catch (e) { }
         }
         setAddress(address);
       }

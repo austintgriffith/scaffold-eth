@@ -19,7 +19,7 @@
     "fork": "yarn workspace @scaffold-eth/hardhat fork",
     "node": "yarn workspace @scaffold-eth/hardhat chain",
     "test": "yarn workspace @scaffold-eth/hardhat test",
-    "start": "yarn workspace @scaffold-eth/react-app start",
+    "start": "yarn workspace eth-hooks build && yarn workspace @scaffold-eth/react-app start",
     "compile": "yarn workspace @scaffold-eth/hardhat compile",
     "deploy": "yarn workspace @scaffold-eth/hardhat deploy",
     "verify": "yarn workspace @scaffold-eth/hardhat etherscan-verify", 
@@ -50,7 +50,8 @@
     "graph-ship-local": "yarn graph-prepare && yarn graph-codegen && yarn graph-deploy-local",
     "deploy-and-graph": "yarn deploy && yarn graph-ship-local",
     "theme": "yarn workspace @scaffold-eth/react-app theme",
-    "watch-theme": "yarn workspace @scaffold-eth/react-app watch"
+    "watch-theme": "yarn workspace @scaffold-eth/react-app watch",
+    "build-hooks": "yarn workspace eth-hooks build"
   },
   "workspaces": {
     "packages": [

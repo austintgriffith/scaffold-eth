@@ -12,14 +12,16 @@ import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
 import {
   useBalance,
+  useUserProviderAndSigner,
   useContractLoader,
   useContractReader,
-  useEventListener,
-  useExchangePrice,
   useGasPrice,
   useOnBlock,
-  useUserSigner,
-} from "./hooks";
+} from "eth-hooks";
+
+import { useEventListener } from "eth-hooks/lib/events"
+import { useExchangeEthPrice } from "eth-hooks/lib/dapps/dex"
+
 // import Hints from "./Hints";
 import { ExampleUI, Hints, Subgraph } from "./views";
 import Portis from "@portis/web3";
@@ -82,8 +84,8 @@ const walletLink = new WalletLink({
 
 // WalletLink provider
 const walletLinkProvider = walletLink.makeWeb3Provider(
-    `https://mainnet.infura.io/v3/${INFURA_ID}`,
-    1,
+  `https://mainnet.infura.io/v3/${INFURA_ID}`,
+  1,
 );
 
 // Portis ID: 6255fb2b-58c8-433b-a2c9-62098c05ddc9
@@ -93,7 +95,7 @@ const walletLinkProvider = walletLink.makeWeb3Provider(
 const web3Modal = new Web3Modal({
   network: "mainnet", // Optional. If using WalletConnect on xDai, change network to "xdai" and add RPC info below for xDai chain.
   cacheProvider: true, // optional
-  theme:"light", // optional. Change to "dark" for a dark theme.
+  theme: "light", // optional. Change to "dark" for a dark theme.
   providerOptions: {
     walletconnect: {
       package: WalletConnectProvider, // required
@@ -101,12 +103,12 @@ const web3Modal = new Web3Modal({
         bridge: "https://polygon.bridge.walletconnect.org",
         infuraId: INFURA_ID,
         rpc: {
-          1:`https://mainnet.infura.io/v3/${INFURA_ID}`, // mainnet // For more WalletConnect providers: https://docs.walletconnect.org/quick-start/dapps/web3-provider#required
+          1: `https://mainnet.infura.io/v3/${INFURA_ID}`, // mainnet // For more WalletConnect providers: https://docs.walletconnect.org/quick-start/dapps/web3-provider#required
           42: `https://kovan.infura.io/v3/${INFURA_ID}`,
-          100:"https://dai.poa.network", // xDai
+          100: "https://dai.poa.network", // xDai
         },
       },
-      
+
     },
     portis: {
       display: {
@@ -158,6 +160,14 @@ const web3Modal = new Web3Modal({
 
 
 
+const contractList = require("./contracts/hardhat_contracts.json");
+const externalContractList = require("./contracts/external_contracts.js");
+
+const contractsConfig = {
+  deployedContracts: contractList,
+  externalContracts: externalContractList
+}
+
 function App(props) {
   const mainnetProvider = poktMainnetProvider && poktMainnetProvider._isProvider ? poktMainnetProvider : scaffoldEthProvider && scaffoldEthProvider._network ? scaffoldEthProvider : mainnetInfura;
 
@@ -166,7 +176,7 @@ function App(props) {
 
   const logoutOfWeb3Modal = async () => {
     await web3Modal.clearCachedProvider();
-    if(injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == "function"){
+    if (injectedProvider && injectedProvider.provider && typeof injectedProvider.provider.disconnect == "function") {
       await injectedProvider.provider.disconnect();
     }
     setTimeout(() => {
@@ -175,12 +185,13 @@ function App(props) {
   };
 
   /* 💵 This hook will get the price of ETH from 🦄 Uniswap: */
-  const price = useExchangePrice(targetNetwork, mainnetProvider);
+  const price = useExchangeEthPrice(targetNetwork, mainnetProvider);
 
   /* 🔥 This hook will get the price of Gas from ⛽️ EtherGasStation */
   const gasPrice = useGasPrice(targetNetwork, "fast");
   // Use your injected provider from 🦊 Metamask or if you don't have it then instantly generate a 🔥 burner wallet.
-  const userSigner = useUserSigner(injectedProvider, localProvider);
+  const userProviderAndSigner = useUserProviderAndSigner(injectedProvider, localProvider);
+  const userSigner = userProviderAndSigner.signer;
 
   useEffect(() => {
     async function getAddress() {
@@ -212,15 +223,25 @@ function App(props) {
   const yourMainnetBalance = useBalance(mainnetProvider, address);
 
   // Load in your local 📝 contract and read a value from it:
-  const readContracts = useContractLoader(localProvider);
+  const readContracts = useContractLoader(
+    localProvider,
+    contractsConfig
+  );
 
   // If you want to make 🔐 write transactions to your contracts, use the userSigner:
-  const writeContracts = useContractLoader(userSigner, { chainId: localChainId });
+  const writeContracts = useContractLoader(
+    userSigner,
+    contractsConfig,
+    localChainId
+  );
 
   // EXTERNAL CONTRACT EXAMPLE:
   //
   // If you want to bring in the mainnet DAI contract it would look like:
-  const mainnetContracts = useContractLoader(mainnetProvider);
+  const mainnetContracts = useContractLoader(
+    mainnetProvider,
+    contractsConfig
+  );
 
   // If you want to call a function on a new block
   useOnBlock(mainnetProvider, () => {
@@ -484,6 +505,7 @@ function App(props) {
               provider={localProvider}
               address={address}
               blockExplorer={blockExplorer}
+              config={contractsConfig}
             />
           </Route>
           <Route path="/hints">
@@ -517,6 +539,7 @@ function App(props) {
               provider={mainnetProvider}
               address={address}
               blockExplorer="https://etherscan.io/"
+              config={contractsConfig}
             />
             {/*
             <Contract
@@ -526,6 +549,7 @@ function App(props) {
               provider={mainnetProvider}
               address={address}
               blockExplorer="https://etherscan.io/"
+              config={contractsConfig}
             />
             */}
           </Route>
