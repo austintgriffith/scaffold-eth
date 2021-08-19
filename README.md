@@ -1,4 +1,4 @@
-# Welcome to Scaffold-eth
+# Welcome to Scaffold-eth - eip gas prices calculator
 Scaffold-eth is everything you need to get started building decentralized applications on Ethereum! 🚀
 
 # About Scaffold-eth
@@ -44,7 +44,8 @@ If everything goes smoothly you should now have a local network running, with th
 
 # Preview 
 🎛 http://eth-gas-burn-calc.surge.sh/
-![preview](https://user-images.githubusercontent.com/35558569/123924519-a0d00b00-d9bc-11eb-9779-3e275a1b68b6.png)
+![preview](https://user-images.githubusercontent.com/35558569/129438957-0fd500fe-db60-436e-a457-c7a5c2df7d24.png)
+
 
 # Documentation
 
