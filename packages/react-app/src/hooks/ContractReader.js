@@ -87,6 +87,7 @@ export default function useContractReader(contracts, contractName, functionName,
 
   if (tried === false && contracts && contracts[contractName]) {
     updateValue();
+    setTried(true);
   }
 
   return value;
