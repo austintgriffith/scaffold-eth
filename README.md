@@ -25,6 +25,8 @@ cd sign-up-for-tokens
 yarn start
 ```
 
+📝 Edit and add your frontend address in `packages/hardhat/deploy/01_deploy_tokendistributor_contract.js`, `line 6`
+
 > in a third terminal window, 🛰 deploy your contract:
 
 ```bash

@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Badge, Button , Space} from "antd";
 import React from "react";
 import { useThemeSwitcher } from "react-css-theme-switcher";
 import Address from "./Address";
@@ -50,6 +50,7 @@ export default function Account({
   loadWeb3Modal,
   logoutOfWeb3Modal,
   blockExplorer,
+  isOwner
 }) {
   const modalButtons = [];
   if (web3Modal) {
@@ -86,7 +87,10 @@ export default function Account({
   const display = minimized ? (
     ""
   ) : (
-    <span>
+    
+      <Space>
+      {isOwner && <Badge count={"admin"} />}
+      {!isOwner && <Badge count={"user"} style={{ backgroundColor: '#52c41a' }} />}
       {address ? (
         <Address address={address} ensProvider={mainnetProvider} blockExplorer={blockExplorer} />
       ) : (
@@ -101,7 +105,7 @@ export default function Account({
         price={price}
         color={currentTheme === "light" ? "#1890ff" : "#2caad9"}
       />
-    </span>
+    </Space>
   );
 
   return (

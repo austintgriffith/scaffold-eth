@@ -31,6 +31,7 @@
     "fork": "hardhat node --no-deploy --network hardhat --fork https://mainnet.infura.io/v3/460f40a260564ac4a4f4b3fffb032dad",
     "test": "hardhat test --network hardhat",
     "compile": "hardhat compile",
+    "dev-deploy": "hardhat deploy --reset --export-all ../react-app/src/contracts/hardhat_contracts.json",
     "deploy": "hardhat deploy --export-all ../react-app/src/contracts/hardhat_contracts.json",
     "postdeploy": "hardhat run scripts/publish.js",
     "watch": "node scripts/watch.js",
