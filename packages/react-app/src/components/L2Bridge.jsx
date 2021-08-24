@@ -203,7 +203,7 @@ export default function L2ArbitrumBridge({ address, userSigner }) {
             </Select>
           </Form.Item>
           <Form.Item name="address" label="Address">
-            <Input disabled placeholder={address} />
+            <Input autoComplete="off" disabled placeholder={address} />
           </Form.Item>
           <Form.Item
             name="amount"

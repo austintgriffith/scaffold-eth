@@ -80,6 +80,7 @@ export default function BytesStringInput(props) {
 
   return (
     <Input
+      autoComplete="off"
       placeholder={props.placeholder ? props.placeholder : "Enter value in " + mode}
       autoFocus={props.autoFocus}
       value={display}

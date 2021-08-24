@@ -156,6 +156,7 @@ function Subgraph(props) {
       <div style={{ width: 780, margin: "auto", paddingBottom: 64 }}>
         <div style={{ margin: 32, textAlign: "right" }}>
           <Input
+            autoComplete="off"
             onChange={e => {
               setNewPurpose(e.target.value);
             }}

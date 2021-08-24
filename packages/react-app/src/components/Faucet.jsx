@@ -84,6 +84,7 @@ export default function Faucet(props) {
   return (
     <span>
       <Input
+        autoComplete="off"
         size="large"
         placeholder={props.placeholder ? props.placeholder : "local faucet"}
         prefix={blockie}

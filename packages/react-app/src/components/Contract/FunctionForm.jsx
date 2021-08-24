@@ -111,6 +111,7 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
   const txValueInput = (
     <div style={{ margin: 2 }} key="txValueInput">
       <Input
+        autoComplete="off"
         placeholder="transaction value"
         onChange={e => setTxValue(e.target.value)}
         value={txValue}
@@ -164,6 +165,7 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
   inputs.push(
     <div style={{ cursor: "pointer", margin: 2 }} key="goButton">
       <Input
+        autoComplete="off"
         onChange={e => setReturnValue(e.target.value)}
         defaultValue=""
         bordered={false}
