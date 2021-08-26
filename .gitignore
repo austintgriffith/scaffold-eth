@@ -10,6 +10,7 @@ packages/hardhat/artifacts
 packages/hardhat/deployments
 packages/react-app/src/contracts
 packages/react-app/src/circuits/
+packages/react-app/public/circuits/
 packages/hardhat/cache
 packages/circom/circuits/*/compiled/
 packages/circom/circuits/*/contracts/
@@ -24,6 +25,7 @@ tenderly.yaml
 /node_modules
 /.pnp
 .pnp.js
+packages/server/node_modules
 
 # testing
 coverage

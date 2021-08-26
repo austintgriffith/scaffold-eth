@@ -172,7 +172,7 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
         defaultValue=""
         bordered={false}
         disabled={true}
-        value={returnValue}
+        //value={returnValue}
         suffix={
           <div
             style={{ width: 50, height: 30, margin: 0 }}
@@ -208,6 +208,7 @@ export default function FunctionForm({ contractFunction, functionInfo, provider,
 
 
                 // console.log("Running with extras",extras)
+                console.log("args", ...args)
                 const returned = await tx(contractFunction(...args, overrides));
                 result = tryToDisplay(returned);
               }
