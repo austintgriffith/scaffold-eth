@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { BrowserRouter, Link, Route, Switch } from "react-router-dom";
 import Web3Modal from "web3modal";
 import "./App.css";
-import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch } from "./components";
+import { Account, Contract, Faucet, GasGauge, Header, Ramp, ThemeSwitch, ImageToIPFS } from "./components";
 import { INFURA_ID, NETWORK, NETWORKS } from "./constants";
 import { Transactor } from "./helpers";
 import {
@@ -50,8 +50,8 @@ const { ethers } = require("ethers");
 const targetNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
-const DEBUG = true;
-const NETWORKCHECK = true;
+const DEBUG = false;
+const NETWORKCHECK = false;
 
 // 🛰 providers
 if (DEBUG) console.log("📡 Connecting to Mainnet Ethereum");
@@ -447,6 +447,16 @@ function App(props) {
               YourContract
             </Link>
           </Menu.Item>
+          <Menu.Item key="/download">
+            <Link
+              onClick={() => {
+                setRoute("/download");
+              }}
+              to="/download"
+            >
+              Image Downloader
+            </Link>
+          </Menu.Item>
           <Menu.Item key="/hints">
             <Link
               onClick={() => {
@@ -504,6 +514,9 @@ function App(props) {
               address={address}
               blockExplorer={blockExplorer}
             />
+          </Route>
+          <Route path="/download">
+            <ImageToIPFS/>
           </Route>
           <Route path="/hints">
             <Hints
@@ -576,8 +589,9 @@ function App(props) {
         />
         {faucetHint}
       </div>
-
-      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: */}
+      
+      
+      {/* 🗺 Extra UI like gas price, eth price, faucet, and support: 
       <div style={{ position: "fixed", textAlign: "left", left: 0, bottom: 20, padding: 10 }}>
         <Row align="middle" gutter={[4, 4]}>
           <Col span={8}>
@@ -606,7 +620,6 @@ function App(props) {
         <Row align="middle" gutter={[4, 4]}>
           <Col span={24}>
             {
-              /*  if the local provider has a signer, let's show the faucet:  */
               faucetAvailable ? (
                 <Faucet localProvider={localProvider} price={price} ensProvider={mainnetProvider} />
               ) : (
@@ -616,6 +629,7 @@ function App(props) {
           </Col>
         </Row>
       </div>
+    */}
     </div>
   );
 }

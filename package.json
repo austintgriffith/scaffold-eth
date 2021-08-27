@@ -22,7 +22,7 @@
     "start": "yarn workspace @scaffold-eth/react-app start",
     "compile": "yarn workspace @scaffold-eth/hardhat compile",
     "deploy": "yarn workspace @scaffold-eth/hardhat deploy",
-    "verify": "yarn workspace @scaffold-eth/hardhat etherscan-verify", 
+    "verify": "yarn workspace @scaffold-eth/hardhat etherscan-verify",
     "watch": "yarn workspace @scaffold-eth/hardhat watch",
     "accounts": "yarn workspace @scaffold-eth/hardhat accounts",
     "balance": "yarn workspace @scaffold-eth/hardhat balance",
@@ -63,5 +63,7 @@
       "**/hardhat/**"
     ]
   },
-  "dependencies": {}
+  "dependencies": {
+    "@portis/web3": "^4.0.5"
+  }
 }
