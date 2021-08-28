@@ -1,4 +1,4 @@
-import { useTokenBalance } from "eth-hooks";
+import { useTokenBalance } from "eth-hooks/lib/erc/erc-20/useTokenBalance";
 import React, { useState } from "react";
 
 import { utils } from "ethers";

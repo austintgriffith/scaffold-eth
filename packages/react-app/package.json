@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
+    "@apollo/client": "^3.3.21",
     "@apollo/react-hooks": "^4.0.0",
     "@portis/web3": "^4.0.5",
     "@ramp-network/ramp-instant-sdk": "^2.2.0",
@@ -34,8 +35,8 @@
     "axios": "^0.20.0",
     "bnc-notify": "^1.5.0",
     "dotenv": "^8.2.0",
-    "eth-hooks": "^1.1.2",
-    "ethers": "^5.4.4",
+    "eth-hooks": "next",
+    "ethers": "^5.4.1",
     "fortmatic": "^2.2.1",
     "graphiql": "^1.0.5",
     "graphql": "^15.3.0",

@@ -4,7 +4,9 @@ module.exports = {
   },
   // airbnb disabled after upgrade to cra 4 due to errors in our code
   extends: [/*"airbnb"*/ "plugin:prettier/recommended"],
-  plugins: ["babel"],
+  plugins: [
+    /*"babel"*/
+  ],
   rules: {
     "prettier/prettier": "warn",
     "prettier/prettier": [
